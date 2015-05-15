@@ -6,6 +6,21 @@ var domain = 'http://xwenliang.cn';
 fis.config.set('settings.postpackager.simple.autoReflow', true);
 fis.config.merge({
     statics: dir,
+    /* zoo-command-install 要实现的功能
+    requires: [
+        'jQuery@1.11.3'
+    ],
+    pages: [
+        'index',
+        'category',
+        'post',
+        'postlist',
+        'user',
+        'userlist',
+        'water',
+        'chatroom'
+    ],
+    */
     roadmap: {
         domain: domain,
         path: [
