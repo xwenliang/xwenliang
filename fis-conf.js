@@ -31,7 +31,7 @@ fis.config.merge({
             },
             {
                 //公共组件
-                reg: /^\/modules\/([^\/]+)\/(?:.+)\.js$/i,
+                reg: /^\/modules\/([^\/]+)\/(?:[^\/]+).js$/i,
                 //是组件化的，会被jswrapper包装
                 isMod: true,
                 //id为文件夹名
