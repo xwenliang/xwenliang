@@ -22,11 +22,11 @@
 
 	<div id="page-wrapper" class="wrapper">
 		<!--首页-->
-		<div id="page-index" class="hide" data-model="index"></div>
+		<div id="page-index" class="page-index hide" data-model="index"></div>
 		<!--登录-->
-		<div id="page-login" class="hide" data-model="login"></div>
+		<div id="page-login" class="page-login hide" data-model="login"></div>
 		<!--注册-->
-		<div id="page-reg" class="hide" data-model="reg"></div>
+		<div id="page-reg" class="page-reg hide" data-model="reg"></div>
 	</div>
 
 
@@ -39,6 +39,7 @@
 	<script>
 		var app = require('app');
 		var index = require('pages/index');
+		var login = require('pages/login');
 		var reg = require('pages/reg');
 		app.init();
 	</script>

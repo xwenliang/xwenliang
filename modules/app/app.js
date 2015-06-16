@@ -6,7 +6,7 @@
 
 'use strict';
 
-var $ = require('Zepto');
+var $ = require('jquery');
 
 var Backbone = require('Backbone');
 
@@ -29,8 +29,11 @@ app.init = function(){
 		}
 
 		var extras = {time: Date.now()};
-		window.history.pushState(extras, '', this.href);
-		$(window).trigger('popstate');
+		// window.history.pushState(extras, '', this.href);
+		// $(window).trigger('popstate');
+		//注意 this.href 和 this.getAttribute('href') 的区别
+		Backbone.history.navigate(this.getAttribute('href'), { 'trigger': true });
+
 		return false;
 	});
 };
@@ -91,7 +94,7 @@ app.model = Backbone.Model.extend({
 		//子类初始化
 		this.init && this.init();
 	},
-	post: function(conf){
+	post: function(conf, notValidCallback){
 		var me = this;
 		if(me.pending){
 			return false;
