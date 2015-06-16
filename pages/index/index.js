@@ -13,7 +13,6 @@ app.pageview.index = app.view.extend({
 		this.listenTo(this.model, 'change:data', this.render);
 		//初始化index框架
 		this.$el.append(__inline('tpl/index.tpl')());
-		console.log(1);
 	},
 	loadMore: function(e){
 		var model = this.model.toJSON();
@@ -29,7 +28,7 @@ app.pageview.index = app.view.extend({
 		this.tpl = this.tpl || __inline('tpl/list.tpl');
 		this.$el.find('.js-ul').append(
 			this.tpl({
-				posts: this.model.toJSON().data.arr
+				posts: this.model.toJSON().data.posts
 			})
 		);
 	}

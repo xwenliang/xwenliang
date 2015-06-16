@@ -118,6 +118,12 @@ pre ul li{
 .r{
 	float: right;
 }
+.s{
+	padding: 15px;
+	background: #fbfbfb;
+	border: 1px solid #fff;
+	box-shadow: 0 0 10px #dfdfdf;
+}
 .mart10{
 	margin-top: 10px;
 }
@@ -145,7 +151,35 @@ pre ul li{
 .hide{
 	display: none;
 }
-
+//公共按钮
+.gray,
+.green{
+	display: inline-block;
+	vertical-align: top;
+	text-align: center;
+	border-radius: 3px;
+	border: 1px solid #dadada;
+	padding: 2px 8px;
+}
+.gray{
+	background: #efefef;
+	order-color: #dadada;
+	color: #333;
+	&:hover{
+		background: #e6e6e6;
+		color: #333;
+	}
+}
+.green{
+	background: #55b131;
+	border-color: #469129;
+	color: #fff;
+	&:hover{
+		background: #48a623;
+		color: #fff;
+	}
+}
+//头部
 .header{
 	position: fixed;
 	top: 0;
@@ -155,6 +189,7 @@ pre ul li{
 	min-width: 1000px;
 	background: rgba(21, 27, 31, 0.9);
 	box-shadow: 0 1px 1px #aaa;
+	z-index: 10;
 	h1{
 		height: 0;
 		line-height: 0;
@@ -189,13 +224,10 @@ pre ul li{
 		}
 	}
 }
+
 .wrapper{
 	padding-top: 42px;
 }
-
-
-
-
 
 
 
