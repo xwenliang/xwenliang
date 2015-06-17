@@ -3,7 +3,7 @@
 var $ = require('jquery');
 
 module.exports = {
-	/* _dialog对话框
+	/* dialog对话框
 	 * @param html(string)				窗体内容
 	 * @param title(string)				窗体标题
 	 * @param contentClass(string)		窗体class
@@ -11,7 +11,7 @@ module.exports = {
 	 * @param time(num)					窗体自动关闭时间
 	 * @param closeCallback(fn)			窗体关闭后的回调
 	 */
-	_dialog: function(cfg){
+	dialog: function(cfg){
 		function Dialog(cfg){
 			var _default = {
 				html: '谁还没有个默认值呀~',
@@ -108,13 +108,13 @@ module.exports = {
 
 		return new Dialog(cfg);
 	},
-	/* _tips类似于Gmail的小提示
+	/* tips类似于Gmail的小提示
 	 * @param html(string)				窗体内容
 	 * @param tipsClass(string)			窗体class
 	 * @param time(num)					窗体自动关闭时间
 	 * @param closeCallback(fn)			窗体关闭后的回调
 	 */
-	_tips: function(cfg){
+	tips: function(cfg){
 		function Tips(cfg){
 			var _default = {
 				html: '参数错误~~',
@@ -123,6 +123,8 @@ module.exports = {
 				closeCallback: null,
 				auto: null
 			};
+			//支持仅传入一个字符串
+			cfg = typeof cfg === 'string' ? {html: cfg} : cfg;
 			this.opt = $.extend({}, _default, cfg);
 			this.size = {
 				x: $(document).width(),
@@ -310,7 +312,7 @@ module.exports = {
 		//上传函数
 		function _submit(file){
 			if(!window.FormData || !file){
-				self._dialog({
+				self.dialog({
 					html: '<div style="padding: 20px 0;">低版本浏览器不支持...<br>请使用IE9以上或者chrome/FF浏览器...</div>'
 				});
 				return;
@@ -400,6 +402,7 @@ module.exports = {
 	},
 	//灌水及评论
 	comments: function(callback){
+		var me = this;
 		var pBtn = $('.publishBtn');
 		var ta = $('#water-word');
 		var max = ta.attr('max');
@@ -408,8 +411,8 @@ module.exports = {
 		pBtn.attr('flag', 1);
 		pBtn.click(function(){
 			var text = $.trim(ta.val());
-			var len = zooble.strLen(text);
-			var data = zooble.analyseData(pBtn, "data");
+			var len = me.strLen(text);
+			var data = me.analyseData(pBtn, "data");
 			data.text = text;
 			if(!text.length || !parseInt(pBtn.attr('flag'))){
 				return false;
@@ -421,16 +424,16 @@ module.exports = {
 				data: data,
 				success: function(data){
 					pBtn.attr('flag', 1);
-					data.msg && zooble._tips({html: data.msg});
+					data.msg && me.tips({html: data.msg});
 					callback && callback(ta, data);
 				},
 				error: function(){
-					zooble._tips({html: '服务器出错'});
+					me.tips({html: '服务器出错'});
 					pBtn.attr('flag', 1);
 				}
 			});
 		});
-		zooble.specialKey({
+		me.specialKey({
 			elem: '#water-word',
 			enter: function(){
 				$(".publishBtn").click();
@@ -439,7 +442,7 @@ module.exports = {
 		});
 
 		ta.keyup(function(){
-			var len = zooble.strLen($(this).val());
+			var len = me.strLen($(this).val());
 			var _num = max - len;
 			if(_num >= 0){
 				tips.text('还可输入');

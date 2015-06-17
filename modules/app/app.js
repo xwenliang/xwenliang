@@ -94,7 +94,7 @@ app.model = Backbone.Model.extend({
 		//子类初始化
 		this.init && this.init();
 	},
-	post: function(conf, notValidCallback){
+	post: function(conf){
 		var me = this;
 		if(me.pending){
 			return false;

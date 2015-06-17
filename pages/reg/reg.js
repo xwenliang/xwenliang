@@ -24,14 +24,16 @@ app.pageview.reg = app.view.extend({
 		}, { 'validate': true });
 		//未通过
 		if(this.model.validationError){
-			return util._tips({html: this.model.validationError});
+			return util.tips(this.model.validationError);
 		}
 
 		this.model.post({
 			data: this.model.toJSON(),
 			success: function(ret){
-				util._tips({html: ret.msg});
-				B.history.navigate('/', { 'trigger': true });
+				util.tips(ret.msg);
+				if(ret.code == 1){
+					B.history.navigate(ret.data.redirect, { 'trigger': true });
+				}
 			}
 		});
 		this.model.pending = true;
