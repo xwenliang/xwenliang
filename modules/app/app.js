@@ -28,7 +28,7 @@ app.init = function(){
 			return false;
 		}
 
-		var extras = {time: Date.now()};
+		// var extras = {time: Date.now()};
 		// window.history.pushState(extras, '', this.href);
 		// $(window).trigger('popstate');
 		//注意 this.href 和 this.getAttribute('href') 的区别
@@ -46,7 +46,8 @@ app.router = Backbone.Router.extend({
 	routes: {
 		''		: 	'index',
 		'login'	: 	'login',
-		'reg'	: 	'reg'
+		'reg'	: 	'reg',
+		'p/:id'	: 	'post'
 	},
 	index: function(){
 		this.routeChange('index');
@@ -57,10 +58,15 @@ app.router = Backbone.Router.extend({
 	reg: function(){
 		this.routeChange('reg');
 	},
-	routeChange: function(router){
-		var view = this.views[router];
+	post: function(id){
+		this.routeChange('post', {
+			id: id
+		});
+	},
+	routeChange: function(action, params){
+		var view = this.views[action];
 		if(!view){
-			view = this.views[router] = new app.pageview[router]();
+			view = this.views[action] = new app.pageview[action](params, action);
 		}
 		this.previousView = this.currentView;
 		this.previousHash = this.currentHash;
@@ -90,9 +96,9 @@ app.router = Backbone.Router.extend({
 });
 
 app.model = Backbone.Model.extend({
-	initialize: function(){
+	initialize: function(params, action){
 		//子类初始化
-		this.init && this.init();
+		this.init && this.init(params, action);
 	},
 	post: function(conf){
 		var me = this;
@@ -127,13 +133,13 @@ app.collection = Backbone.Collection.extend({
 });
 
 app.view = Backbone.View.extend({
-	initialize: function(){
+	initialize: function(params, action){
 		if(!this.model){
 			var modelName = this.$el.attr('data-model');
-			this.model = new app.pagemodel[modelName]();
+			this.model = new app.pagemodel[modelName](params, action);
 		}
 		//子类初始化
-		this.init && this.init();
+		this.init && this.init(params, action);
 	}
 });
 

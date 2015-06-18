@@ -37,7 +37,7 @@ app.pageview.index = app.view.extend({
 
 app.pagemodel.index = app.model.extend({
 
-	url: '/posts',
+	url: '/getPosts',
 	defaults: {
 		date: 0
 	},
