@@ -2,12 +2,28 @@
 	<div class="w fix">
 		<div class="post-wrap">
 			<div class="a_i">
-				<div class="a_img"><a href="/u/<%= author.username %>" style="background: url(<%= author.img === 'default' ? __uri('../../../img/img.jpg') : author.img %>) center center; background-size: cover"></a></div>
-				<div class="a_name"><a href="/u/<%= author.username %>"><%= author.username %></a></div>
+				<div class="a_img">
+					<a href="/u/<%= author.username %>" style="
+						background: url(<%= author.img === 'default' ?
+							__uri('../../../img/img.jpg') :
+							author.img %>) center center;
+						background-size: cover"></a>
+				</div>
+				<div class="a_name">
+					<a href="/u/<%= author.username %>"><%= author.username %></a>
+				</div>
 				<div class="a_des"><%= author.describe %></div>
 			</div>
 			<h1 class="title"><%= post.title %></h1>
-			<div class="status"><em class="read-num"><%= post.pageviews %>阅读</em><em class="dot">•</em><em class="comment-num"><%= post.comments.length %>评论</em><em class="dot">•</em><a href="/c/<%= post.category %>"><%= post.category %></a><em class="dot">•</em><em class="date-num"><%= post.date %></em></div>
+			<div class="status">
+				<em class="read-num"><%= post.pageviews %>阅读</em>
+				<em class="dot">•</em>
+				<em class="comment-num"><%= post.comments.length %>评论</em>
+				<em class="dot">•</em>
+				<a href="/c/<%= post.category %>"><%= post.category %></a>
+				<em class="dot">•</em>
+				<em class="date-num"><%= post.date %></em>
+			</div>
 			<div class="artical">
 				<%= post.content %>
 			</div>
@@ -21,7 +37,7 @@
 			<p class="like-tips">觉得本文对你有帮助？</p>
 			<div class="like-wrap fix">
 				<div class="btn-wrap l">
-					<button class="like green" id="like" data="url=/like&_id=<%= post._id %>&user=<%= user ? user.username : '*undefined' %>&img=<%= user ? user.img : __inline('../../../img/img.jpg') %>"><%= post.like.length %></button>
+					<button class="like green" id="like" data-post="_id=<%= post._id %>&user=<%= user ? user.username : '' %>&img=<%= user ? user.img : __inline('../../../img/img.jpg') %>"><%= post.like.length %></button>
 				</div>
 				<div class="liked-ul-wrap">
 					<div class="liked-ul ib-wrap">

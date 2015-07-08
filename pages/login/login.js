@@ -4,7 +4,7 @@ var app = require('app');
 var util = require('util');
 var B = require('Backbone');
 
-app.pageview.login = app.view.extend({
+app.view.login = app.view.extend({
 
 	el: '#page-login',
 	events: {
@@ -82,7 +82,7 @@ app.pageview.login = app.view.extend({
 
 });
 
-app.pagemodel.login = app.model.extend({
+app.model.login = app.model.extend({
 	url: '/login',
 	init: function(){
 

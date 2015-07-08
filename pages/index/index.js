@@ -2,7 +2,7 @@
 
 var app = require('app');
 
-app.pageview.index = app.view.extend({
+app.view.index = app.view.extend({
 
 	el: '#page-index',
 	events: {
@@ -21,7 +21,7 @@ app.pageview.index = app.view.extend({
 			this.model.set('date', model.data.date);
 		}
 		else{
-			e.target.innerHTML = '没有了'
+			e.target.innerHTML = '没有了';
 		}
 	},
 	render: function(){
@@ -35,7 +35,7 @@ app.pageview.index = app.view.extend({
 
 });
 
-app.pagemodel.index = app.model.extend({
+app.model.index = app.model.extend({
 
 	url: '/getPosts',
 	defaults: {
@@ -51,7 +51,7 @@ app.pagemodel.index = app.model.extend({
 			});
 		});
 		//初次请求
-		this.set('date', Date.now());
+		//this.set('date', Date.now());
 	}
 
 });

@@ -5,7 +5,7 @@ var B = require('Backbone');
 var app = require('app');
 var util = require('util');
 
-app.pageview.reg = app.view.extend({
+app.view.reg = app.view.extend({
 
 	el: '#page-reg',
 	events: {
@@ -41,7 +41,7 @@ app.pageview.reg = app.view.extend({
 
 });
 
-app.pagemodel.reg = app.model.extend({
+app.model.reg = app.model.extend({
 
 	url: '/reg',
 	init: function(){

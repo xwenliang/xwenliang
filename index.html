@@ -2,23 +2,13 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>web开发笔记</title>
+	<title>Document</title>
 	<link type="text/css" rel="stylesheet" href="/css/common.less">
 	<!--STYLE_PLACEHOLDER-->
 </head>
 <body>
-	<div id="page-header" class="header">
-		<div class="w fix">
-			<h1>web开发笔记</h1>
-			<div class="logo l"><a href="/" title="web开发笔记">zooble</a></div>
-			<div class="nav r">
-				<a href="/login">登录</a>
-				<a href="/reg">注册</a>
-				<!-- <a href="/fm" class="marr10">Zplayer</a>
-				<a href="/chatroom">ChatRoom</a> -->
-			</div>
-		</div>
-	</div>
+
+	<div id="page-header" class="header" data-model="global_header"></div>
 
 	<div id="page-wrapper" class="wrapper">
 		<!--首页-->
@@ -44,7 +34,9 @@
 		var login = require('pages/login');
 		var reg = require('pages/reg');
 		var post = require('pages/post');
+		var header = require('pages/global_header');
 		app.init();
 	</script>
+
 </body>
 </html>

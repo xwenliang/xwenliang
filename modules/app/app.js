@@ -13,11 +13,6 @@ var Backbone = require('Backbone');
 var app = window.app || {};
 
 app.init = function(){
-	new this.router();
-	Backbone.history.start({
-		pushState: true,
-		hashChange: false
-	});
 	//页面点击监听
 	$('body').on('click', 'a', function(e){
 		if(this.target || this.href.indexOf('javascript') > -1){
@@ -36,6 +31,16 @@ app.init = function(){
 
 		return false;
 	});
+
+	new this.router();
+
+	Backbone.history.start({
+		pushState: true,
+		hashChange: false
+	});
+
+	//实例化globalViews
+	app.$header = new app.view.global_header();
 };
 
 app.router = Backbone.Router.extend({
@@ -66,12 +71,20 @@ app.router = Backbone.Router.extend({
 	routeChange: function(action, params){
 		var view = this.views[action];
 		if(!view){
-			view = this.views[action] = new app.pageview[action](params, action);
+			view = this.views[action] = new app.view[action](params, action);
 		}
 		this.previousView = this.currentView;
 		this.previousHash = this.currentHash;
 		this.currentView = view;
 		this.currentHash = window.location.hash;
+
+		//将数据变化，通知model
+		if(view.model && params){
+			for(var i in params){
+				view.model.set(i, params[i]);
+			}
+		}
+
 		//切换页面前
 		this.boforeSwitchPage(this.previousView, this.currentView);
 		//切换页面
@@ -79,26 +92,43 @@ app.router = Backbone.Router.extend({
 			//切换页面后
 			this.afterSwitchPage(this.previousView, this.currentView);
 		});
-		
 	},
 	switchPage: function(from, to, callback){
+		var me = this;
 		//todo 简单的显示隐藏，待优化
-		from && from.$el.addClass('hide');
-		to && to.$el.removeClass('hide');
-		callback && callback.call(this, from, to);
+		setTimeout(function(){
+			from && from.$el.slideUp(300);
+			to && to.$el.slideDown(300);
+			callback && callback.call(me, from, to);
+		}, 100);
 	},
 	boforeSwitchPage: function(from, to){
-
+		if(!from){
+			return;
+		}
+		//记忆滚动条位置
+		from.scrollPosY = window.scrollY;
+		//触发view的beforePageChange
+		from.beforePageChange(from, to);
 	},
 	afterSwitchPage: function(from, to){
-		//console.log(from, to);
+		if(!from){
+			return;
+		}
+		//重置滚动条位置
+		window.scrollTo(0, to.scrollPosY || 0);
+		//触发view的afterPageChange
+		from.afterPageChange(from, to);
 	}
 });
 
 app.model = Backbone.Model.extend({
 	initialize: function(params, action){
 		//子类初始化
-		this.init && this.init(params, action);
+		this.init(params, action);
+	},
+	init: function(params, action){
+		this.fetch();
 	},
 	post: function(conf){
 		var me = this;
@@ -106,7 +136,7 @@ app.model = Backbone.Model.extend({
 			return false;
 		}
 		$.ajax({
-			url: me.url,
+			url: conf.url || me.url,
 			data: conf.data,
 			type: 'post',
 			dataType: 'json',
@@ -126,24 +156,20 @@ app.model = Backbone.Model.extend({
 	}
 });
 
-app.collection = Backbone.Collection.extend({
-	initialize: function(){
-
-	}
-});
-
 app.view = Backbone.View.extend({
 	initialize: function(params, action){
 		if(!this.model){
+			//必须为当前view的el指定data-model属性，会自动实例化app.model.该属性的model
 			var modelName = this.$el.attr('data-model');
-			this.model = new app.pagemodel[modelName](params, action);
+			this.model = new app.model[modelName](params, action);
 		}
 		//子类初始化
 		this.init && this.init(params, action);
+	},
+	beforePageChange: function(currentView, nextView){
+	},
+	afterPageChange: function(currentView, nextView){
 	}
 });
-
-app.pageview = {};
-app.pagemodel = {};
 
 module.exports = app;
