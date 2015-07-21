@@ -4,6 +4,7 @@
 	<div class="nav r">
 		<% if(loginStatus){ %>
 			<a class="js-u" href="javascript:">用户中心</a>
+			<a class="js-logout" href="javascript:">退出</a>
 		<% }else{ %>
 			<a href="/login">登录</a>
 			<a href="/reg">注册</a>

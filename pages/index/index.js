@@ -51,7 +51,7 @@ app.model.index = app.model.extend({
 			});
 		});
 		//初次请求
-		//this.set('date', Date.now());
+		this.set('date', Date.now());
 	}
 
 });

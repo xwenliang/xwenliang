@@ -8,6 +8,12 @@
 
 var $ = require('jquery');
 
+var _ajax = $.ajax;
+$.ajax = function(options){
+	console.log(1);
+	return _ajax(options);
+};
+
 var Backbone = require('Backbone');
 
 var app = window.app || {};
@@ -39,15 +45,21 @@ app.init = function(){
 		hashChange: false
 	});
 
-	//实例化globalViews
-	app.$header = new app.view.global_header();
+	//全局视图实例化
+	app.$header = app.router.prototype.views['global_header'] = new app.view.global_header();
+};
+//获取view
+app.getViewByAction = function(action){
+	return app.router.prototype.views[action];
 };
 
 app.router = Backbone.Router.extend({
 	initialize: function(){
-		//保存视图
-		this.views = {};
+		//保存视图,为何写在这里，就不能通过app.router.prototype.views在外部访问？
+		//this.views = {};
 	},
+	//保存视图
+	views: {},
 	routes: {
 		''		: 	'index',
 		'login'	: 	'login',
@@ -119,6 +131,9 @@ app.router = Backbone.Router.extend({
 		window.scrollTo(0, to.scrollPosY || 0);
 		//触发view的afterPageChange
 		from.afterPageChange(from, to);
+	},
+	getViewByAction: function(action){
+		return this.views[action];
 	}
 });
 

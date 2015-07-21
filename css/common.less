@@ -180,7 +180,7 @@ pre ul li{
 	}
 }
 //头部
-.header{
+.page-header{
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -190,37 +190,58 @@ pre ul li{
 	background: rgba(21, 27, 31, 0.9);
 	box-shadow: 0 1px 1px #aaa;
 	z-index: 10;
-	h1{
-		height: 0;
-		line-height: 0;
-		text-indent: -9999px;
-	}
-	.logo{
-		a{
-			display: inline-block;
-			vertical-align: top;
-			font-size: 30px;
-			line-height: 42px;
-			font-weight: bold;
-			color: #151b1f;
-			text-shadow: 0 0 5px #eee;
-			color: #eee\9;
-			color: #eee\8;
-			*color: #eee;
-			_color: #eee;
+	.processor{
+		position: absolute;
+		left: 0;
+		top: 41px;
+		z-index: 1;
+		width: 0;
+		height: 2px;
+		background: #55b131;
+		&::after{
+			content: ' ';
+			width: 2px;
+			height: 2px;
+			position: absolute;
+			right: -1px;
+			top: 0;
+			background: #55b131;
+			border-radius: 2px;
 		}
 	}
-	.nav{
-		a{
-			display: inline-block;
-			vertical-align: top;
-			margin-left: 10px;
-			height: 42px;
-			line-height: 42px;
-			font-size: 18px;
-			color: #bdbdbd;
-			&:hover{
-				color: #55b131;
+	.header-wrap{
+		h1{
+			height: 0;
+			line-height: 0;
+			text-indent: -9999px;
+		}
+		.logo{
+			a{
+				display: inline-block;
+				vertical-align: top;
+				font-size: 30px;
+				line-height: 42px;
+				font-weight: bold;
+				color: #151b1f;
+				text-shadow: 0 0 5px #eee;
+				color: #eee\9;
+				color: #eee\8;
+				*color: #eee;
+				_color: #eee;
+			}
+		}
+		.nav{
+			a{
+				display: inline-block;
+				vertical-align: top;
+				margin-left: 10px;
+				height: 42px;
+				line-height: 42px;
+				font-size: 18px;
+				color: #bdbdbd;
+				&:hover{
+					color: #55b131;
+				}
 			}
 		}
 	}

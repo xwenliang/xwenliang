@@ -74,6 +74,8 @@ app.view.login = app.view.extend({
 				util.tips(ret.msg);
 				if(ret.code == 1){
 					B.history.navigate(ret.data.redirect, { 'trigger': true });
+					//通知header视图
+					app.$header.trigger('changeLogStatus', {from: 'login'});
 				}
 			}
 		});
