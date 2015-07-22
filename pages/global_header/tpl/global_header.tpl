@@ -3,7 +3,8 @@
 	<div class="logo l"><a href="/" title="web开发笔记">zooble</a></div>
 	<div class="nav r">
 		<% if(loginStatus){ %>
-			<a class="js-u" href="javascript:">用户中心</a>
+			<a class="js-u user" href="/u/<%= username %>"><img src="<%= img %>"><span><%= username %></span></a>
+			<a class="vline" href="javascript"></a>
 			<a class="js-logout" href="javascript:">退出</a>
 		<% }else{ %>
 			<a href="/login">登录</a>

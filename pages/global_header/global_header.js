@@ -22,9 +22,16 @@ app.view.global_header = app.view.extend({
 	render: function(){
 		var tpl = __inline('tpl/global_header.tpl');
 		var data = this.model.toJSON();
+		//已登录
+		if(data.data.loginStatus){
+			var username = data.data.user.username;
+			var img = data.data.user.img === 'default' ? __uri('../../img/img.jpg') : data.data.user.img;
+		}
 		this.$('#header-wrap').html(
 			tpl({
-				loginStatus: data.data.loginStatus
+				loginStatus: data.data.loginStatus,
+				username: username,
+				img: img
 			})
 		);
 	},

@@ -195,18 +195,18 @@ pre ul li{
 		left: 0;
 		top: 41px;
 		z-index: 1;
-		width: 0;
-		height: 2px;
+		width: 0%;
+		height: 3px;
 		background: #55b131;
 		&::after{
 			content: ' ';
-			width: 2px;
-			height: 2px;
+			width: 3px;
+			height: 3px;
 			position: absolute;
 			right: -1px;
 			top: 0;
 			background: #55b131;
-			border-radius: 2px;
+			border-radius: 3px;
 		}
 	}
 	.header-wrap{
@@ -237,11 +237,31 @@ pre ul li{
 				margin-left: 10px;
 				height: 42px;
 				line-height: 42px;
-				font-size: 18px;
+				font-size: 16px;
 				color: #bdbdbd;
 				&:hover{
 					color: #55b131;
 				}
+			}
+			.user{
+				img{
+					display: inline-block;
+					vertical-align: top;
+					width: 20px;
+					height: 20px;
+					border-radius: 20px;
+					margin: 10px 5px 0 0;
+				}
+				span{
+					display: inline-block;
+					vertical-align: top;
+				}
+			}
+			.vline{
+				width: 1px;
+				height: 14px;
+				margin-top: 14px;
+				background: #ddd;
 			}
 		}
 	}

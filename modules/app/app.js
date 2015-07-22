@@ -8,12 +8,6 @@
 
 var $ = require('jquery');
 
-var _ajax = $.ajax;
-$.ajax = function(options){
-	console.log(1);
-	return _ajax(options);
-};
-
 var Backbone = require('Backbone');
 
 var app = window.app || {};
@@ -61,10 +55,11 @@ app.router = Backbone.Router.extend({
 	//保存视图
 	views: {},
 	routes: {
-		''		: 	'index',
-		'login'	: 	'login',
-		'reg'	: 	'reg',
-		'p/:id'	: 	'post'
+		''				: 	'index',
+		'login'			: 	'login',
+		'reg'			: 	'reg',
+		'u/:username'	: 	'user',
+		'p/:id'			: 	'post'
 	},
 	index: function(){
 		this.routeChange('index');
@@ -74,6 +69,9 @@ app.router = Backbone.Router.extend({
 	},
 	reg: function(){
 		this.routeChange('reg');
+	},
+	user: function(){
+		this.routeChange('user');
 	},
 	post: function(id){
 		this.routeChange('post', {
@@ -185,6 +183,35 @@ app.view = Backbone.View.extend({
 	},
 	afterPageChange: function(currentView, nextView){
 	}
+});
+
+//实现进度条控制
+var $el = $('#processor');
+$(document)
+.ajaxStart(function(){
+	$el.css({
+		width: '30%',
+		transition: 'width 10s cubic-bezier(0.22, 0.61, 0.36, 1)'
+	});
+})
+.ajaxComplete(function(){
+	$el.css({
+		width: '100%',
+		transition: 'all 1s cubic-bezier(0.22, 0.61, 0.36, 1)'
+	});
+	
+	setTimeout(function(){
+		$el.css({
+			opacity: 0
+		});
+		setTimeout(function(){
+			$el.css({
+				width: 0,
+				opacity: 1,
+				transition: 'none'
+			});
+		}, 1000);
+	}, 1000);
 });
 
 module.exports = app;
