@@ -11,7 +11,7 @@ app.view.global_header = app.view.extend({
 		//登录或注册的时候重新检查登录状态
 		this.on('changeLogStatus', function(params){
 			this.model.fetch({
-				url: '/checkLogin'
+				url: '/getLoginStatus'
 			});
 		});
 		//所有登录状态的变化，都会走到这里
@@ -37,7 +37,7 @@ app.view.global_header = app.view.extend({
 	},
 	logout: function(){
 		this.model.fetch({
-			url: '/logout'
+			url: '/getLogout'
 		});
 	}
 
@@ -45,6 +45,6 @@ app.view.global_header = app.view.extend({
 
 app.model.global_header = app.model.extend({
 
-	url: '/checkLogin'
+	url: '/getLoginStatus'
 	
 });

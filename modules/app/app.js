@@ -59,7 +59,8 @@ app.router = Backbone.Router.extend({
 		'login'			: 	'login',
 		'reg'			: 	'reg',
 		'u/:username'	: 	'user',
-		'p/:id'			: 	'post'
+		'p/:id'			: 	'post',
+		'water'			: 	'water'
 	},
 	index: function(){
 		this.routeChange('index');
@@ -70,12 +71,19 @@ app.router = Backbone.Router.extend({
 	reg: function(){
 		this.routeChange('reg');
 	},
-	user: function(){
-		this.routeChange('user');
+	user: function(username){
+		this.routeChange('user', {
+			username: username
+		});
 	},
 	post: function(id){
 		this.routeChange('post', {
 			id: id
+		});
+	},
+	water: function(){
+		this.routeChange('water', {
+			'waters': '1ge '
 		});
 	},
 	routeChange: function(action, params){
@@ -96,39 +104,35 @@ app.router = Backbone.Router.extend({
 		}
 
 		//切换页面前
-		this.boforeSwitchPage(this.previousView, this.currentView);
+		this.beforeSwitchView(this.previousView, this.currentView, params);
 		//切换页面
-		this.switchPage(this.previousView, this.currentView, function(){
+		this.switchPage(this.previousView, this.currentView, params, function(){
 			//切换页面后
-			this.afterSwitchPage(this.previousView, this.currentView);
+			this.afterSwitchView(this.previousView, this.currentView, params);
 		});
 	},
-	switchPage: function(from, to, callback){
+	switchPage: function(from, to, params, callback){
 		var me = this;
 		//todo 简单的显示隐藏，待优化
 		setTimeout(function(){
 			from && from.$el.slideUp(300);
 			to && to.$el.slideDown(300);
-			callback && callback.call(me, from, to);
+			callback && callback.call(me, from, to, params);
 		}, 100);
 	},
-	boforeSwitchPage: function(from, to){
-		if(!from){
-			return;
+	beforeSwitchView: function(from, to, params){
+		if(from){
+			//记忆滚动条位置
+			from.scrollPosY = window.scrollY;
 		}
-		//记忆滚动条位置
-		from.scrollPosY = window.scrollY;
-		//触发view的beforePageChange
-		from.beforePageChange(from, to);
+		//下个view的beforeAction
+		to.beforeAction(params);
 	},
-	afterSwitchPage: function(from, to){
-		if(!from){
-			return;
-		}
+	afterSwitchView: function(from, to, params){
 		//重置滚动条位置
 		window.scrollTo(0, to.scrollPosY || 0);
-		//触发view的afterPageChange
-		from.afterPageChange(from, to);
+		//下个view的afterAction
+		to.afterAction(params);
 	},
 	getViewByAction: function(action){
 		return this.views[action];
@@ -179,9 +183,11 @@ app.view = Backbone.View.extend({
 		//子类初始化
 		this.init && this.init(params, action);
 	},
-	beforePageChange: function(currentView, nextView){
+	beforeAction: function(params){
+
 	},
-	afterPageChange: function(currentView, nextView){
+	afterAction: function(params){
+
 	}
 });
 

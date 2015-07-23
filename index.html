@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title><%= title %></title>
 	<link type="text/css" rel="stylesheet" href="/css/common.less">
 	<!--STYLE_PLACEHOLDER-->
 </head>
@@ -15,15 +15,19 @@
 
 	<div id="page-wrapper" class="wrapper">
 		<!--首页-->
-		<div id="page-index" class="page-index hide" data-model="index"></div>
+		<div id="page-index" class="page-index" data-model="index"></div>
 		<!--登录-->
-		<div id="page-login" class="page-login hide" data-model="login"></div>
+		<div id="page-login" class="page-login" data-model="login"></div>
 		<!--注册-->
-		<div id="page-reg" class="page-reg hide" data-model="reg"></div>
+		<div id="page-reg" class="page-reg" data-model="reg"></div>
 		<!--用户中心-->
-		<div id="page-user" class="page-user hide" data-model="user"></div>
+		<div id="page-user" class="page-user" data-model="user"></div>
 		<!---文章详情-->
-		<div id="page-post" class="page-post hide" data-model="post"></div>
+		<div id="page-post" class="page-post" data-model="post"></div>
+		<!-- 灌水列表 -->
+		<div id="page-water" class="page-water" data-model="water"></div>
+		<!-- <div id="page-chatroom" class="page-chatroom" data-model="chatroom"></div>
+		<div id="page-fm" class="page-fm" data-model="fm"></div> -->
 	</div>
 
 	<footer id="page-footer" class="page-footer"></footer>
@@ -35,12 +39,13 @@
 	<!--SCRIPT_PLACEHOLDER-->
 	<script>
 		var app = require('app');
+		var header = require('pages/global_header');
 		var index = require('pages/index');
 		var login = require('pages/login');
 		var reg = require('pages/reg');
 		var user = require('pages/user');
 		var post = require('pages/post');
-		var header = require('pages/global_header');
+		var water = require('pages/water');
 		app.init();
 	</script>
 

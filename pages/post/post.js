@@ -40,6 +40,10 @@ app.view.post = app.view.extend({
 		});
 
 	},
+	render: function(data){
+		var tpl = __inline('tpl/post.tpl');
+		this.$el.html(tpl(data));
+	},
 	getLikeUserInfo: function(users){
 		if(!users.length){
 			return;
@@ -63,11 +67,7 @@ app.view.post = app.view.extend({
 			}
 		});
 	},
-	render: function(data){
-		var tpl = __inline('tpl/post.tpl');
-		this.$el.html(tpl(data));
-	},
-	before: function(){
+	beforeSwitchView: function(){
 		// this.$el.html('');
 	},
 	like: function(e){
@@ -110,7 +110,7 @@ app.model.post = app.model.extend({
 		//获取文章数据
 		this.getData(params.id);
 		this.on('change:id', function(){
-			this.getData(this.toJSON().id);
+			this.getData(this.get('id'));
 		});
 	},
 	getData: function(id){

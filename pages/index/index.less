@@ -1,43 +1,96 @@
 .page-index{
 	padding-top: 20px;
-	.c-l{
-		width: 680px;
-		.c-l-li{
-			position: relative;
-			line-height: 24px;
-			text-align: left;
-			.title{
-				max-width: 480px;
-				padding-bottom: 5px;
-				a{
-					display: inline-block;
-					vertical-align: middle;
-					max-width: 100%;
-					overflow: hidden;
-					font-weight: bold;
-					white-space: nowrap;
-					font-size: 16px;
-					text-overflow: ellipsis;
-				}
-			}
-			.total{
-				position: absolute;
-				right: 15px;
-				top: 15px;
-				color: #999;
-			}
-			.fontr{
-				text-align: right;
+	.c-l-li{
+		position: relative;
+		line-height: 24px;
+		text-align: left;
+		.title{
+			max-width: 480px;
+			padding-bottom: 5px;
+			a{
+				display: inline-block;
+				vertical-align: middle;
+				max-width: 100%;
+				overflow: hidden;
+				font-weight: bold;
+				white-space: nowrap;
+				font-size: 16px;
+				text-overflow: ellipsis;
 			}
 		}
-		.more{
-			text-align: center;
-			a{
-				font-size: 16px;
+		.total{
+			position: absolute;
+			right: 15px;
+			top: 15px;
+			color: #999;
+		}
+	}
+	.c-r-water{
+		padding: 10px 15px;
+		.tit{
+			margin-bottom: 5px;
+			font-weight: bold;
+			font-size: 16px;
+			color: #3b9c15;
+			display: inline-block;
+			border-bottom: 2px solid #3b9c15;
+		}
+		.water-ul{
+			margin-bottom: 15px;
+			li{
+				padding: 8px 0 2px;
+				position: relative;
+				border-bottom: 1px solid #efefef;
+			}
+			.wname{
+				color: #3b9c15;
+				a{
+					color: #3b9c15;
+				}
+			}
+			.wtext{
+				display: inline;
+			}
+			.wdate{
+				color: #999;
+			}
+			.whide{
+				display: none;
+			}
+		}
+		.water-input{
+			text-align: right;
+			textarea{
+				width: 256px;
+				height: 100px;
+				overflow: hidden;
+				border: 1px solid #3b9c15;
+				resize: none;
+				outline: medium;
+				padding: 5px;
+				font: normal 14px/1.5 'Menlo', Arial, '\5FAE\8F6F\96C5\9ED1', '\5b8b\4f53';
+				color: #333;
+			}
+			.water-tips{
+				color: #aaa;
+				margin-top: 4px;
+				.num{
+					font-weight: bold;
+					padding: 0 2px;
+				}
+				.redb{
+					color: red;
+				}
+				.water-ul .wname{
+					color: #3b9c15;
+				}
 			}
 		}
 	}
-	.c-r{
-		width: 300px;
+	.more{
+		text-align: center;
+		a{
+			font-size: 16px;
+		}
 	}
 }
