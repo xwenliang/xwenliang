@@ -6,6 +6,7 @@ var testDir = '/Users/zooble/Documents/case/xwenliang/3/static';
 //fis.config.set('roadmap.relative', true);
 fis.config.set('settings.postpackager.simple.autoReflow', true);
 fis.config.set('settings.postpackager.simple.autoCombine', true);
+fis.config.set('settings.postpackager.simple.output', 'pkg/pages_combine_${hash}');
 fis.config.merge({
     statics: dir,
     /* zoo-command-install 要实现的功能

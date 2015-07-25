@@ -216,23 +216,22 @@ module.exports = {
 			'top': '10px',
 			'display': 'none'
 		});
-		$(opt.module).hover(
-			function(){
-				var self = $(this);
-				if(btnWrap.html() == ""){
-					opt.del && $(opt.del).appendTo(btnWrap);
-					opt.edi && $(opt.edi).appendTo(btnWrap);
-					opt.pub && $(opt.pub).appendTo(btnWrap);
-				}
-				self.css('position', 'relative');
-				btnWrap.appendTo(self);
-				btnWrap.fadeIn(300);
-				opt.callback && opt.callback(self);
-			},
-			function(){
-				btnWrap.stop().css('display', 'none');
+
+		$(document).on('mouseenter', opt.module, function(){
+			var self = $(this);
+			if(btnWrap.html() == ""){
+				opt.del && $(opt.del).appendTo(btnWrap);
+				opt.edi && $(opt.edi).appendTo(btnWrap);
+				opt.pub && $(opt.pub).appendTo(btnWrap);
 			}
-		).trigger('mouseleave');
+			self.css('position', 'relative');
+			btnWrap.appendTo(self);
+			btnWrap.fadeIn(300);
+			opt.callback && opt.callback(self);
+		});
+		$(document).on('mouseleave', opt.module, function(){
+			btnWrap.stop().css('display', 'none');
+		});
 	},
 	/* enter/esc事件
 	 * @param elem(string)			需要绑定这个事件的选择器
