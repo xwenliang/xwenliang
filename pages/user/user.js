@@ -122,17 +122,22 @@ app.view.user = app.view.extend({
 		});
 	},
 	saveProfile: function(val, img){
+		var me = this;
 		$.post('/updateUser', {
 			describe: val,
 			imgSrc: img
 		},
 		function(ret){
 			if(ret.code = 1){
-				defaultVal = img;
-				defaultImg = img;
+				me.$('.a_des').attr('data-default', val);
+				me.$('.a_img').attr('data-default', img);
 			}
 			util.tips(ret.msg);
 		});
+	},
+	//使用流氓手段，每次更新个人中心内容
+	beforeAction: function(){
+		this.model.set('time', Date.now());
 	}
 });
 
@@ -140,7 +145,7 @@ app.model.user = app.model.extend({
 	url: '/getUserPosts',
 	init: function(params, action){
 		//监听model的username
-		this.on('change:username', function(){
+		this.on('change:username, change:time', function(){
 			this.fetchData(this.get('username'));
 		});
 		this.fetchData(params.username);

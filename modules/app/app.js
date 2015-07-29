@@ -60,7 +60,8 @@ app.router = Backbone.Router.extend({
 		'reg'			: 	'reg',
 		'u/:username'	: 	'user',
 		'p/:id'			: 	'post',
-		'water'			: 	'water'
+		'water'			: 	'water',
+		'newpost'		: 	'newpost'
 	},
 	index: function(){
 		this.routeChange('index');
@@ -83,7 +84,12 @@ app.router = Backbone.Router.extend({
 	},
 	water: function(){
 		this.routeChange('water', {
-			'waters': '1ge '
+			
+		});
+	},
+	newpost: function(){
+		this.routeChange('newpost', {
+			
 		});
 	},
 	routeChange: function(action, params){

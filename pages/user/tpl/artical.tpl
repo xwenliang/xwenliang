@@ -11,7 +11,11 @@
 					<div class="c-l-li marb20 s" data="url=/e/<%= data.draft_arr[i]._id %>&_id=<%= data.draft_arr[i]._id %>">
 						<h2 class="title"><a href="/p/<%= data.draft_arr[i]._id %>" ><%= data.draft_arr[i].title %></a></h2>
 						<div><%= data.draft_arr[i].content %></div>
-						<div class="box-foot fontr ib-wrap"><a href="/c/<%= data.draft_arr[i].category %>" title="分类"><%= data.draft_arr[i].category %></a><em class="dot">•</em><%= data.draft_arr[i].date %></div>
+						<div class="box-foot fontr ib-wrap">
+							<a href="/c/<%= data.draft_arr[i].category %>" title="分类"><%= data.draft_arr[i].category %></a>
+							<span class="dot"></span>
+							<span><%= data.draft_arr[i].date %></span>
+						</div>
 					</div>
 				<% } %>
 				</div>
