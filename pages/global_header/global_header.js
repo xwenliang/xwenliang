@@ -1,3 +1,6 @@
+
+'use strict';
+
 var $ = require('jquery');
 
 app.view.global_header = app.view.extend({

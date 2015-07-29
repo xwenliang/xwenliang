@@ -1,4 +1,5 @@
-//'use strict';
+
+'use strict';
 
 var $ = require('jquery');
 var B = require('Backbone');

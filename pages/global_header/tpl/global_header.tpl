@@ -6,8 +6,8 @@
 		<a href="/chatroom">chatroom</a> -->
 	</div>
 	<div class="nav r ib-wrap">
-		<% if(loginStatus){ %>
-			<a class="js-u user" href="/u/<%= username %>"><img src="<%= img %>"><span><%= username %></span></a>
+		<% if(data.loginStatus){ %>
+			<a class="js-u user" href="/u/<%= data.username %>"><img src="<%= data.img %>"><span><%= data.username %></span></a>
 			<a class="vline" href="javascript"></a>
 			<a class="js-logout" href="javascript:">退出</a>
 		<% }else{ %>

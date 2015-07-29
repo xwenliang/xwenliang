@@ -1,3 +1,6 @@
+
+'use strict';
+
 var $ = require('jquery');
 var B = require('Backbone');
 var app = require('app');
@@ -105,7 +108,7 @@ app.view.user = app.view.extend({
 				if(data.code != 1){
 					return util.tips(data.msg || '请求错误~');
 				}
-				var src = '/' + data.data.src.replace('\\', '/');
+				var src = data.data.src.replace('\\', '/');
 				$('.a_img').css({
 					'background': 'url(' + src + ') center center',
 					'background-size': 'cover'

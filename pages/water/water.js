@@ -1,3 +1,6 @@
+
+'use strict';
+
 var $ = require('jquery');
 var app = require('app');
 app.view.water = app.view.extend({

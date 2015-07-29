@@ -1,4 +1,6 @@
 
+'use strict';
+
 var $ = require('jquery');
 var app = require('app');
 var util = require('util');
