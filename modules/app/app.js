@@ -142,7 +142,8 @@ app.router = Backbone.Router.extend({
 				'-webkit-transform': 'translateZ(-500px) rotateY(-90deg)',
 				'-webkit-transition': 'all .5s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
 			});
-			setTimeout(function(){
+			clearTimeout(this.delay);
+			this.delay = setTimeout(function(){
 				//重置滚动条位置
 				window.scrollTo(0, to.scrollPosY || 0);
 				//重置样式
