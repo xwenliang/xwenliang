@@ -15,14 +15,10 @@
 				<div class="a_des"><%= data.author.describe %></div>
 			</div>
 			<h1 class="title"><%= data.post.title %></h1>
-			<div class="status">
-				<em class="read-num"><%= data.post.pageviews %>阅读</em>
-				<em class="dot">•</em>
-				<em class="comment-num"><%= data.post.comments.length %>评论</em>
-				<em class="dot">•</em>
+			<div class="status ib-wrap">
 				<a href="/c/<%= data.post.category %>"><%= data.post.category %></a>
-				<em class="dot">•</em>
-				<em class="date-num"><%= data.post.date %></em>
+				<span class="dot"></span>
+				<span class="date-num"><%= data.post.date %></span>
 			</div>
 			<div class="artical">
 				<%= data.post.content %>

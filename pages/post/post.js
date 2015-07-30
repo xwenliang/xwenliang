@@ -70,8 +70,11 @@ app.view.post = app.view.extend({
 			}
 		});
 	},
-	beforeSwitchView: function(){
-		// this.$el.html('');
+	beforeAction: function(){
+
+	},
+	afterAction: function(){
+
 	},
 	like: function(e){
 		var me = this;

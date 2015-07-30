@@ -219,7 +219,7 @@ pre ul li{
 	width: 300px;
 }
 .wrapper{
-	padding-top: 42px;
+	margin-top: 42px;
 	>div{
 		display: none;
 	}
@@ -241,6 +241,20 @@ pre ul li{
 	}
 }
 
+.perspective{
+	-webkit-perspective: 1000px;
+	.wrapper{
+		-webkit-transform-style: preserve-3d;
+		-webkit-transform: translateZ(-500px);
+		position: relative;
+		>div{
+			-webkit-backface-visibility: hidden;
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+	}
+}
 
 
 

@@ -119,24 +119,53 @@ app.router = Backbone.Router.extend({
 	},
 	switchPage: function(from, to, params, callback){
 		var me = this;
-		//todo 简单的显示隐藏，待优化
-		setTimeout(function(){
-			from && from.$el.slideUp(300);
-			to && to.$el.slideDown(300);
+		if(!from){
+			to.$el.css({
+				'display': 'block',
+				'-webkit-transform': 'translateZ(500px)'
+			});
 			callback && callback.call(me, from, to, params);
-		}, 100);
-	},
-	beforeSwitchView: function(from, to, params){
-		if(from){
+		}
+		else{
 			//记忆滚动条位置
 			from.scrollPosY = window.scrollY;
+			//将要切换的view准备好
+			from.$el.css({
+				'-webkit-transform': 'translateZ(500px)'
+			});
+			to.$el.css({
+				'display': 'block',
+				'-webkit-transform': 'rotateY(90deg) translateZ(500px)'
+			});
+			//一切就绪后，旋转其父容器
+			to.$el.parent().css({
+				'-webkit-transform': 'translateZ(-500px) rotateY(-90deg)',
+				'-webkit-transition': 'all .5s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+			});
+			setTimeout(function(){
+				//重置滚动条位置
+				window.scrollTo(0, to.scrollPosY || 0);
+				//重置样式
+				from.$el.css({
+					'display': 'none',
+					'-webkit-transform': 'none'
+				});
+				to.$el.css({
+					'-webkit-transform': 'translateZ(500px)'
+				});
+				to.$el.parent().css({
+					'-webkit-transform': 'translateZ(-500px)',
+					'-webkit-transition': 'none'
+				});
+				callback && callback.call(me, from, to, params);
+			}, 600);
 		}
+	},
+	beforeSwitchView: function(from, to, params){
 		//下个view的beforeAction
 		to.beforeAction(params);
 	},
 	afterSwitchView: function(from, to, params){
-		//重置滚动条位置
-		window.scrollTo(0, to.scrollPosY || 0);
 		//下个view的afterAction
 		to.afterAction(params);
 	},
