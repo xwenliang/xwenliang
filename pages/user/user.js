@@ -133,6 +133,8 @@ app.view.user = app.view.extend({
 				me.$('.a_img').attr('data-default', img);
 			}
 			util.tips(ret.msg);
+			//更换顶栏头像
+			app.$header.$('.js-u img').attr('src', img);
 		});
 	},
 	//使用流氓手段，每次更新个人中心内容
