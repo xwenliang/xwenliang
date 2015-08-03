@@ -13,6 +13,10 @@
 		<% if(data.user.power < 5){ %>
 			<a class="green" href="/newpost">写作</a>
 		<% } %>
+		<% if(data.user.power < 2){ %>
+			<a class="green" href="/postlist">文章列表</a>
+			<a class="green" href="/userlist">用户列表</a>
+		<% } %>
 	</div>
 	<% } %>
 

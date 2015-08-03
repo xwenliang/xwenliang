@@ -104,7 +104,10 @@ app.model.index = app.model.extend({
 		this.on('change:date', function(){
 			this.fetch({
 				data: {
-					date: this.get('date')
+					date: this.get('date'),
+					len: 4,
+					examine: 1,
+					status: 'publish'
 				}
 			});
 		});

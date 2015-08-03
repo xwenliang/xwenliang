@@ -61,7 +61,9 @@ app.router = Backbone.Router.extend({
 		'u/:username'	: 	'user',
 		'p/:id'			: 	'post',
 		'water'			: 	'water',
-		'newpost'		: 	'newpost'
+		'newpost'		: 	'newpost',
+		'postlist'		: 	'postlist',
+		'userlist'		: 	'userlist'
 	},
 	index: function(){
 		this.routeChange('index');
@@ -90,6 +92,16 @@ app.router = Backbone.Router.extend({
 	newpost: function(){
 		this.routeChange('newpost', {
 			
+		});
+	},
+	postlist: function(){
+		this.routeChange('postlist', {
+
+		});
+	},
+	userlist: function(){
+		this.routeChange('userlist', {
+
 		});
 	},
 	routeChange: function(action, params){
