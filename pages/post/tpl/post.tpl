@@ -33,7 +33,7 @@
 			<p class="like-tips">觉得本文对你有帮助？</p>
 			<div class="like-wrap fix">
 				<div class="btn-wrap l">
-					<button class="like green" id="like" data-post="_id=<%= data.post._id %>&user=<%= data.user ? data.user.username : '' %>&img=<%= data.user ? data.user.img : __inline('../../../img/img.jpg') %>"><%= data.post.like.length %></button>
+					<button class="like green" id="like" data-post="_id=<%= data.post._id %>&user=<%= data.user ? data.user.username : '' %>&img=<%= data.user ? data.user.img : __uri('../../../img/img.jpg') %>"><%= data.post.like.length %></button>
 				</div>
 				<div class="liked-ul-wrap">
 					<div class="liked-ul ib-wrap">

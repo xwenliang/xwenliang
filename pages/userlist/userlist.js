@@ -19,7 +19,7 @@ app.view.userlist = app.view.extend({
 	render: function(){
 		var tpl = __inline('tpl/userlist.tpl');
 		var data = this.model.toJSON().data;
-		this.$el.append(tpl(data));
+		this.$el.html(tpl(data));
 	},
 	//每次进来，触发刷新
 	beforeAction: function(){

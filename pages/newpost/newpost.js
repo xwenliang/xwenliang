@@ -12,24 +12,45 @@ app.view.newpost = app.view.extend({
 	events: {
 		'click .js-post>a': 'sendPost'
 	},
-	init: function(){
+	init: function(params, action){
 		var me = this;
-		var tpl = __inline('tpl/newpost.tpl');
-		this.$el.html(tpl());
-		this.listenTo(this.model, 'change:data', this.renderCategory);
+		this.tpl = __inline('tpl/newpost.tpl');
+		//新建文章
+		if(params.id === 'new'){
+			this.$el.html(this.tpl());
+			this.rendCategory();
+		}
+		else{
+			//传来了id，需要进行文章编辑
+			this.listenTo(this.model, 'change:data', this.render);
+		}
+		
 		//初始化编辑器，因为切页动画，页面不会立即展示，编辑器工具栏的位置计算会有问题，所以延时
 		setTimeout(function(){
 			new zEditor({container: '#zEditor'});
 		}, 1000);
 	},
-	renderCategory: function(){
-		//分类
-		var str = '';
-		var options = this.model.toJSON()['data']['categorys'];
-		for(var i=0,len=options.length;i<len;i++){
-			str += '<option>'+options[i]['name']+'</option>';
-		}
-		this.$el.find('#category').html(str);
+	render: function(){
+		var data = this.model.toJSON().data;
+		this.$el.html(this.tpl(data));
+
+		this.rendCategory(data.post.category);
+	},
+	rendCategory: function(category){
+		var me = this;
+		$.get('/getCategory', function(ret){
+			var options = ret.data.categorys;
+			var arr = [];
+			for(var i=0,len=options.length;i<len;i++){
+				if(category && category === options[i]['name']){
+					arr.push('<option selected="selected">'+options[i]['name']+'</option>');
+				}
+				else{
+					arr.push('<option>'+options[i]['name']+'</option>');
+				}
+			}
+			me.$el.find('#category').html(arr.join(''));
+		});
 	},
 	sendPost: function(e){
 		var me = this;
@@ -98,6 +119,18 @@ app.view.newpost = app.view.extend({
 });
 app.model.newpost = app.model.extend({
 
-	url: '/getCategory'
+	url: '/getPostInfo',
+	init: function(params, action){
+		//新增
+		if(params.id === 'new'){
+
+		}
+		//编辑
+		else{
+			this.fetch({
+				data: {'postId': params.id}
+			});
+		}
+	}
 
 });

@@ -11,7 +11,7 @@
 	<% if(data.isAuthor){ %>
 	<div class="marb20 s">
 		<% if(data.user.power < 5){ %>
-			<a class="green" href="/newpost">写作</a>
+			<a class="green" href="/newpost/new">写作</a>
 		<% } %>
 		<% if(data.user.power < 2){ %>
 			<a class="green" href="/postlist">文章列表</a>

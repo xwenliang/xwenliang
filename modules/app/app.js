@@ -60,8 +60,9 @@ app.router = Backbone.Router.extend({
 		'reg'			: 	'reg',
 		'u/:username'	: 	'user',
 		'p/:id'			: 	'post',
+		'c/:category'	: 	'category',
 		'water'			: 	'water',
-		'newpost'		: 	'newpost',
+		'newpost/:id'	: 	'newpost',
 		'postlist'		: 	'postlist',
 		'userlist'		: 	'userlist'
 	},
@@ -84,14 +85,19 @@ app.router = Backbone.Router.extend({
 			id: id
 		});
 	},
+	category: function(category){
+		this.routeChange('category', {
+			category: category
+		});
+	},
 	water: function(){
 		this.routeChange('water', {
 			
 		});
 	},
-	newpost: function(){
+	newpost: function(id){
 		this.routeChange('newpost', {
-			
+			id: id
 		});
 	},
 	postlist: function(){
