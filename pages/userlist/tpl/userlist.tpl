@@ -20,6 +20,7 @@
 						<% } %>
 					</span>
 					<span class="u-time marr10">注册时间:  <%= user.date %></span>
+					<span class="u-time marr10">最后访问:  <%= user.lastVisitTime %></span>
 					<button class="gray js-del" data-post="url=/delUser">删除</button>
 				</div>
 			<% }) %>
