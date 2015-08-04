@@ -74,7 +74,7 @@
 				</ul>
 				<div class="water-input ib-wrap">
 					<textarea id="water-word" max="200" class="marb10"></textarea><br>
-					<button class="green marr10 publishBtn" data="url=/comments&_id=<%= data.post._id %>" flag="1">发布</button>
+					<button class="green marr10 publishBtn" data="url=/comment&_id=<%= data.post._id %>" flag="1">发布</button>
 					<span class="water-tips"><em class="pre-num">还可输入</em><em class="num">200</em>个字</span>
 				</div>
 			</div>

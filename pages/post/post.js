@@ -44,8 +44,26 @@ app.view.post = app.view.extend({
 
 	},
 	render: function(data){
+		var me = this;
 		var tpl = __inline('tpl/post.tpl');
 		this.$el.html(tpl(data));
+		//评论
+		var $waterUl = this.$('.water-ul');
+		util.comments(function(ta, data){
+			if(data.code === 1){
+				me.$('.p-c-nodata').remove();
+				ta.val('').keyup();
+				var str = $('<li class="ib-wrap whide">\
+						<span class="wname marr10">'+data.data.user+':</span>\
+						<span class="wtext marr20">'+data.data.text+'</span><br>\
+						<span class="wdate">'+data.data.date+'</span>\
+					</li>');
+				var total = $('.p-c-t em');
+				total.text(parseInt(total.text(), 10) + 1);
+				$waterUl.append(str);
+				str.fadeIn(500);
+			}
+		});
 	},
 	getLikeUserInfo: function(users){
 		if(!users.length){
