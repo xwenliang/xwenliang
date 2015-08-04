@@ -20,7 +20,7 @@
 			</div>
 			<div class="post-ui fix">
 				<div class="ui-cancel l"><a class="gray" href="/">取消</a></div>
-				<div class="js-post ui-post r"><span>不用预览，所见即所得哦亲~</span><a class="gray marl10" href="javascript:" data-post="url=/publish&status=draft">保存到草稿</a><a class="green marl10" href="javascript:" data-post="url=/publish&status=publish">发布</a></div>
+				<div class="js-post ui-post r"><span>不用预览，所见即所得哦亲~</span><a class="gray marl10" href="javascript:" data-post="url=/updatePost&status=draft">保存到草稿</a><a class="green marl10" href="javascript:" data-post="url=/updatePost&status=publish">发布</a></div>
 			</div>
 		</div>
 		<% }else{ %>
@@ -40,7 +40,7 @@
 			</div>
 			<div class="post-ui fix">
 				<div class="ui-cancel l"><a class="gray" href="/">取消</a></div>
-				<div class="js-post ui-post r"><span>不用预览，所见即所得哦亲~</span><a class="gray marl10" href="javascript:" data-post="url=/publish&status=draft">保存到草稿</a><a class="green marl10" href="javascript:" data-post="url=/publish&status=publish">发布</a></div>
+				<div class="js-post ui-post r"><span>不用预览，所见即所得哦亲~</span><a class="gray marl10" href="javascript:" data-post="url=/publishPost&status=draft">保存到草稿</a><a class="green marl10" href="javascript:" data-post="url=/publishPost&status=publish">发布</a></div>
 			</div>
 		</div>
 		<% } %>

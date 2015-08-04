@@ -92,6 +92,7 @@ app.view.newpost = app.view.extend({
 			url: data.url,
 			type: 'POST',
 			data: {
+				postId: this.model.get('id'),
 				title: title,
 				content: this.$('.workplace').html(),
 				category: this.$('#category').val(),
