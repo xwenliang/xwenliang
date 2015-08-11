@@ -41,6 +41,13 @@ app.init = function(){
 
 	//全局视图实例化
 	app.$header = app.router.prototype.views['global_header'] = new app.view.global_header();
+	//获取滚动条宽度
+	var $html = $('html');
+	$html.css('overflow', 'scroll');
+	var scrollWid = $html.width();
+	$html.css('overflow', 'hidden');
+	var hiddenWid = $html.width();
+	app.scrollBarWidth = hiddenWid - scrollWid;
 };
 //获取view
 app.getViewByAction = function(action){
@@ -139,31 +146,47 @@ app.router = Backbone.Router.extend({
 		var me = this;
 		var $box = to.$el.parent();
 		//旋转盒子的绝对宽度
-		var boxWidth = $box.width();
+		var boxWidth = window.innerWidth;
 		//盒子中心点的真正位置，默认取盒子宽度的1/2
-		var boxRealPos = boxWidth/2 + 1000;
+		var boxRealPos = boxWidth/2;
 		//将整个旋转盒子的中心点沿z轴向屏幕内移动盒子宽度的1/2，这样盒子的每一个当前面都会跟屏幕所在的位置重合了
 		//将中心点放置于z轴离原点大于盒子宽度1/2的位置，看上去盒子就被缩小了
 		$box.css({
 			'-webkit-transform': 'translateZ(-'+boxRealPos+'px)'
 		});
+
+		/*
+		 * 	这里有个小技巧：
+		 * 		如果带着滚动条切换页面，看上去太丑，于是想隐藏掉
+		 *		具体做法是，切换过程中overflow:hidden 切换结束overflow:auto
+		 *		但这样会使得页面在切换之后抖动一下
+		 * 		于是先通过设置html overflow scroll获取其宽度
+		 * 		再设置overflow hidden获取其宽度
+		 *		两者相减得到滚动条的宽度，在overflow hidden的时候加上margin-right这个宽度，就ok了
+		 * 		当然这个操作只需要执行一次，所以放到app初始化的时候就可以了
+		 */
+
 		//直接打开的页面，直接显示
 		if(!from){
 			to.$el.css({
 				'display': 'block',
+				'overflow': 'scroll',
+				'margin-right': 0,
 				'-webkit-transform': 'translateZ('+boxWidth/2+'px)'
 			});
 			callback && callback.call(me, from, to, params);
 		}
 		else{
-			//记忆滚动条位置
-			from.scrollPosY = window.scrollY;
 			//将要切换的view准备好
 			from.$el.css({
+				'overflow': 'hidden',
+				'margin-right': app.scrollBarWidth + 'px',
 				'-webkit-transform': 'translateZ('+boxWidth/2+'px)'
 			});
 			to.$el.css({
 				'display': 'block',
+				'overflow': 'hidden',
+				'margin-right': app.scrollBarWidth + 'px',
 				'-webkit-transform': 'rotateY(90deg) translateZ('+boxWidth/2+'px)'
 			});
 			//一切就绪后，旋转其父容器
@@ -173,12 +196,13 @@ app.router = Backbone.Router.extend({
 			});
 			clearTimeout(this.delay);
 			this.delay = setTimeout(function(){
-				//重置样式
 				from.$el.css({
 					'display': 'none',
 					'-webkit-transform': 'none'
 				});
 				to.$el.css({
+					'overflow': 'scroll',
+					'margin-right': 0,
 					'-webkit-transform': 'translateZ('+boxWidth/2+'px)'
 				});
 				$box.css({
