@@ -31,6 +31,11 @@ app.init = function(){
 
 		return false;
 	});
+	//监听浏览器的后退事件，实现跟前进相反的动画
+	window.addEventListener('popstate', function(e){
+		//这里监听的是浏览器的前进或后退事件，todo:区分前进和后退
+		app.backbtnclicked = true;
+	});
 
 	new this.router();
 
@@ -170,7 +175,7 @@ app.router = Backbone.Router.extend({
 		if(!from){
 			to.$el.css({
 				'display': 'block',
-				'overflow': 'scroll',
+				'overflow-y': 'scroll',
 				'padding-right': 0,
 				'-webkit-transform': 'translateZ('+boxWidth/2+'px)'
 			});
@@ -183,25 +188,35 @@ app.router = Backbone.Router.extend({
 				'padding-right': app.scrollBarWidth + 'px',
 				'-webkit-transform': 'translateZ('+boxWidth/2+'px)'
 			});
+
+			var rotate = -90;
+			//点击浏览器的后退，要执行相反的动画
+			if(app.backbtnclicked){
+				app.backbtnclicked = false;
+				rotate = -rotate;
+			}
 			to.$el.css({
 				'display': 'block',
 				'overflow': 'hidden',
 				'padding-right': app.scrollBarWidth + 'px',
-				'-webkit-transform': 'rotateY(90deg) translateZ('+boxWidth/2+'px)'
+				'-webkit-transform': 'rotateY('+(-rotate)+'deg) translateZ('+boxWidth/2+'px)'
 			});
 			//一切就绪后，旋转其父容器
 			$box.css({
-				'-webkit-transform': 'translateZ(-'+boxRealPos+'px) rotateY(-90deg)',
+				'-webkit-transform': 'translateZ(-'+boxRealPos+'px) rotateY('+rotate+'deg)',
 				'-webkit-transition': 'all .5s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
 			});
 			clearTimeout(this.delay);
 			this.delay = setTimeout(function(){
-				from.$el.css({
-					'display': 'none',
-					'-webkit-transform': 'none'
-				});
+				//存在from和to是同一个view的情况，比如都是用户中心，但用户名不一样，这时候from就不能隐藏了
+				if(from.cid != to.cid){
+					from.$el.css({
+						'display': 'none',
+						'-webkit-transform': 'none'
+					});
+				}
 				to.$el.css({
-					'overflow': 'scroll',
+					'overflow-y': 'scroll',
 					'padding-right': 0,
 					'-webkit-transform': 'translateZ('+boxWidth/2+'px)'
 				});
