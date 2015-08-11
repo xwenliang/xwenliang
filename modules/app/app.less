@@ -9,9 +9,10 @@ html, body{
 		-webkit-transform-style: preserve-3d;
 		position: relative;
 		height: 100%;
-		margin: 42px auto 0;
+		margin: 0 auto;
 		>div{
 			-webkit-backface-visibility: hidden;
+			-webkit-box-sizing: border-box;
 			position: absolute;
 			left: 0;
 			top: 0;
@@ -20,6 +21,9 @@ html, body{
 			width: 100%;
 			background: #f9f9f9;
 			overflow: scroll;
+			>.w{
+				padding-top: 42px;
+			}
 		}
 	}
 }

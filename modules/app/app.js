@@ -162,7 +162,7 @@ app.router = Backbone.Router.extend({
 		 *		但这样会使得页面在切换之后抖动一下
 		 * 		于是先通过设置html overflow scroll获取其宽度
 		 * 		再设置overflow hidden获取其宽度
-		 *		两者相减得到滚动条的宽度，在overflow hidden的时候加上margin-right这个宽度，就ok了
+		 *		两者相减得到滚动条的宽度，在overflow hidden的时候加上padding-right这个宽度，就ok了
 		 * 		当然这个操作只需要执行一次，所以放到app初始化的时候就可以了
 		 */
 
@@ -171,7 +171,7 @@ app.router = Backbone.Router.extend({
 			to.$el.css({
 				'display': 'block',
 				'overflow': 'scroll',
-				'margin-right': 0,
+				'padding-right': 0,
 				'-webkit-transform': 'translateZ('+boxWidth/2+'px)'
 			});
 			callback && callback.call(me, from, to, params);
@@ -180,13 +180,13 @@ app.router = Backbone.Router.extend({
 			//将要切换的view准备好
 			from.$el.css({
 				'overflow': 'hidden',
-				'margin-right': app.scrollBarWidth + 'px',
+				'padding-right': app.scrollBarWidth + 'px',
 				'-webkit-transform': 'translateZ('+boxWidth/2+'px)'
 			});
 			to.$el.css({
 				'display': 'block',
 				'overflow': 'hidden',
-				'margin-right': app.scrollBarWidth + 'px',
+				'padding-right': app.scrollBarWidth + 'px',
 				'-webkit-transform': 'rotateY(90deg) translateZ('+boxWidth/2+'px)'
 			});
 			//一切就绪后，旋转其父容器
@@ -202,7 +202,7 @@ app.router = Backbone.Router.extend({
 				});
 				to.$el.css({
 					'overflow': 'scroll',
-					'margin-right': 0,
+					'padding-right': 0,
 					'-webkit-transform': 'translateZ('+boxWidth/2+'px)'
 				});
 				$box.css({
