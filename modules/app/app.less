@@ -1,0 +1,24 @@
+html, body{
+	height: 100%;
+	overflow: hidden;
+}
+.perspective{
+	-webkit-perspective: 1000px;
+	height: 100%;
+	.wrapper{
+		-webkit-transform-style: preserve-3d;
+		position: relative;
+		height: 100%;
+		margin: 42px auto 0;
+		>div{
+			-webkit-backface-visibility: hidden;
+			position: absolute;
+			left: 0;
+			top: 0;
+			display: none;
+			height: 100%;
+			width: 100%;
+			overflow: auto;
+		}
+	}
+}

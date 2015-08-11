@@ -137,10 +137,21 @@ app.router = Backbone.Router.extend({
 	},
 	switchPage: function(from, to, params, callback){
 		var me = this;
+		var $box = to.$el.parent();
+		//旋转盒子的绝对宽度
+		var boxWidth = $box.width();
+		//盒子中心点的真正位置，默认取盒子宽度的1/2
+		var boxRealPos = boxWidth/2 + 1000;
+		//将整个旋转盒子的中心点沿z轴向屏幕内移动盒子宽度的1/2，这样盒子的每一个当前面都会跟屏幕所在的位置重合了
+		//将中心点放置于z轴离原点大于盒子宽度1/2的位置，看上去盒子就被缩小了
+		$box.css({
+			'-webkit-transform': 'translateZ(-'+boxRealPos+'px)'
+		});
+		//直接打开的页面，直接显示
 		if(!from){
 			to.$el.css({
 				'display': 'block',
-				'-webkit-transform': 'translateZ(500px)'
+				'-webkit-transform': 'translateZ('+boxWidth/2+'px)'
 			});
 			callback && callback.call(me, from, to, params);
 		}
@@ -149,31 +160,29 @@ app.router = Backbone.Router.extend({
 			from.scrollPosY = window.scrollY;
 			//将要切换的view准备好
 			from.$el.css({
-				'-webkit-transform': 'translateZ(500px)'
+				'-webkit-transform': 'translateZ('+boxWidth/2+'px)'
 			});
 			to.$el.css({
 				'display': 'block',
-				'-webkit-transform': 'rotateY(90deg) translateZ(500px)'
+				'-webkit-transform': 'rotateY(90deg) translateZ('+boxWidth/2+'px)'
 			});
 			//一切就绪后，旋转其父容器
-			to.$el.parent().css({
-				'-webkit-transform': 'translateZ(-500px) rotateY(-90deg)',
+			$box.css({
+				'-webkit-transform': 'translateZ(-'+boxRealPos+'px) rotateY(-90deg)',
 				'-webkit-transition': 'all .5s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
 			});
 			clearTimeout(this.delay);
 			this.delay = setTimeout(function(){
-				//重置滚动条位置
-				window.scrollTo(0, to.scrollPosY || 0);
 				//重置样式
 				from.$el.css({
 					'display': 'none',
 					'-webkit-transform': 'none'
 				});
 				to.$el.css({
-					'-webkit-transform': 'translateZ(500px)'
+					'-webkit-transform': 'translateZ('+boxWidth/2+'px)'
 				});
-				to.$el.parent().css({
-					'-webkit-transform': 'translateZ(-500px)',
+				$box.css({
+					'-webkit-transform': 'translateZ(-'+boxRealPos+'px)',
 					'-webkit-transition': 'none'
 				});
 				callback && callback.call(me, from, to, params);
