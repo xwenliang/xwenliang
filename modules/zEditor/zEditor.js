@@ -145,7 +145,7 @@ zEditor.prototype = {
 					if(data.code != 1){
 						return util.tips(data.msg || '请求错误');
 					}
-					var src = '/' + data.data.src.replace('\\', '/');
+					var src = data.data.src.replace('\\', '/');
 					var selection = document.getSelection && document.getSelection();
 					var $img = $('<img src="'+src+'">');
 					$(curTag).html($img);

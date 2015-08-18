@@ -130,6 +130,13 @@ fis.config.merge({
                 to: testDir,
                 subOnly: true
             }
-        ]
+        ],
+        online: {
+            {
+                from: dir,
+                to: testDir,
+                subOnly: true
+            }
+        }
     }
 });
