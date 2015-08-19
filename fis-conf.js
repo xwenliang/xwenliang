@@ -124,6 +124,7 @@ fis.config.merge({
         ]
     },
     deploy: {
+        //测试
         test: [
             {
                 from: dir,
@@ -131,12 +132,13 @@ fis.config.merge({
                 subOnly: true
             }
         ],
-        online: {
+        //上线
+        online: [
             {
                 from: dir,
                 to: testDir,
                 subOnly: true
             }
-        }
+        ]
     }
 });

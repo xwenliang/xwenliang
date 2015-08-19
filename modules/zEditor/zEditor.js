@@ -24,10 +24,11 @@ zEditor.prototype = {
 		};
 		var me = this;
 		me.opt = $.extend({}, _default, cfg);
-		//所有的p的身份标记数组
+		//所有段落的身份标记数组
 		me.uniqueArr = [];
 		//编辑器dom对象
 		me.$editor = $(me.opt.container);
+		//工作区
 		me.$el = me.$editor.find(me.opt.workplace);
 		//一些参数
 		me.opt.offset = me.$el.offset();
@@ -36,7 +37,7 @@ zEditor.prototype = {
 		me.opt.parentPaddingBottom = parseInt(me.$editor.css('paddingBottom'));
 		//初始为15行高度，减1是为了提前触发autoHeight
 		me.$el.height(me.opt.lineHeight*15 - 1);
-		//仅限chrome、firefox浏览器
+		//仅限chrome浏览器
 		me.ua = window.navigator.userAgent.toLowerCase();
 		if(me.ua.indexOf('chrome') > 0){
 			me.ua = 'chrome';
@@ -45,7 +46,7 @@ zEditor.prototype = {
 			me.ua = 'firefox';
 		}
 		else{
-			me.$el.html('仅支持Chrome、Firefox浏览器');
+			me.$el.html('仅支持Chrome浏览器');
 			return me.ua = false;
 		}
 		me.clickController();
@@ -53,7 +54,6 @@ zEditor.prototype = {
 		me.tool();
 		me.autoHeight();
 		me.filterPaste();
-		me.highLight();
 	},
 	//创建独一的uid
 	createUnique: function(){
@@ -69,10 +69,10 @@ zEditor.prototype = {
 		var me = this;
 		var selection = document.getSelection && document.getSelection();
 		var uid = me.createUnique();
-		var $p = $('<p name="'+ uid +'" cur="true"><br></p>');
-		$p.appendTo(me.$el);
+		var $group = $('<div class="z-line-group" name="'+ uid +'" cur="true"><br></div>');
+		$group.appendTo(me.$el);
 		//将光标移动到首段的第一个位置
-		selection.collapse($p[0], 0);
+		selection.collapse($group[0], 0);
 	},
 	//获取当前光标所处标签
 	getCurTag: function(){
@@ -81,12 +81,12 @@ zEditor.prototype = {
 		var parent = selection.getRangeAt(0).commonAncestorContainer;
 		//当光标所在的位置为空文本时，其commonAncestorContainer为最外层可编辑div，不为空，才是文本节点
 		var tag = parent.nodeType === 3 ? parent.parentNode : parent;
-		while(tag.parentNode && tag.tagName != 'P' && tag.tagName != 'PRE' && tag.tagName != 'LI'){
+		while(tag.parentNode && tag.tagName != 'DIV' && tag.tagName != 'PRE' && tag.tagName != 'LI'){
 			tag = tag.parentNode;
 		};
 		//对tag修正
-		if(tag.tagName != 'P' && tag.tagName != 'PRE' && tag.tagName != 'LI'){
-			tag = me.$el.find('p[cur=true]')[0] || me.$el.find('pre[cur=true]')[0] || me.$el.find('li[cur=true]')[0];
+		if(tag.tagName != 'DIV' && tag.tagName != 'PRE' && tag.tagName != 'LI'){
+			tag = me.$el.find('div[cur=true]')[0] || me.$el.find('pre[cur=true]')[0] || me.$el.find('li[cur=true]')[0];
 		}
 		else{
 			$(tag).attr('cur', true).siblings().removeAttr('cur');
@@ -121,7 +121,7 @@ zEditor.prototype = {
 		};
 		//代码、上传图片事件
 		$codeBtn.on('click', function(e){
-			if(curTag.tagName != 'P'){
+			if(curTag.tagName != 'DIV'){
 				return false;
 			}
 			//代码编辑器代码
@@ -130,7 +130,7 @@ zEditor.prototype = {
 		});
 
 		$imgBtn.on('click', function(e){
-			if(curTag.tagName != 'P'){
+			if(curTag.tagName != 'DIV'){
 				return false;
 			}
 			//上传图片代码
@@ -170,7 +170,7 @@ zEditor.prototype = {
 			$el = $(curTag),
 			height = me.$tool.outerHeight();
 
-		if(!$el.text() && curTag && curTag.tagName == 'P'){
+		if(!$el.text() && curTag && curTag.tagName == 'DIV'){
 			me.$tool.show();
 			me.$tool.css('top', $el.offset().top - opt.offset.top + opt.parentPaddingTop + (opt.lineHeight - height)/2 - 1);
 		}
@@ -202,10 +202,10 @@ zEditor.prototype = {
 			}
 			//在pre之后插入p (仅当鼠标点击非pre区，并且pre为最后一个子节点时插入)
 			var last = $(this).children().last();
-			if(last[0].tagName === "PRE" && e.target.tagName === 'DIV'){
+			if(last[0].tagName === "PRE" && e.target.tagName === 'SECTION'){
 				var selection = document.getSelection && document.getSelection();
 				var uid = me.createUnique();
-				var $p = $('<p name='+ uid +'><br></p>');
+				var $p = $('<div class="z-line-group" name='+ uid +'><br></div>');
 				$(this).append($p);
 				selection.collapse($p[0], 0);
 			}
@@ -238,7 +238,7 @@ zEditor.prototype = {
 					if(tagParent.tagName === 'PRE' && ($(tagParent).text() === ' ' || !$(tagParent).text())){
 						var selection = document.getSelection && document.getSelection();
 						var uid = me.createUnique();
-						var $p = $('<p name="'+ uid +'" cur="true"><br></p>');
+						var $p = $('<div class="z-line-group" name="'+ uid +'" cur="true"><br></div>');
 						$p.insertAfter($(tagParent));
 						selection.collapse($p[0], 0);
 						$(tagParent).remove();
@@ -247,7 +247,7 @@ zEditor.prototype = {
 						return false;
 					}
 					//只有一个p，并且其内容为空，则禁止删除
-					if($(this).find("p").length <= 1 && $(this).find("p").html() === '<br>' && !$(this).find("pre").length){
+					if($(this).find("p").length <= 1 && $(this).find("div").html() === '<br>' && !$(this).find("pre").length){
 						return false;
 					}
 					/*todo 如果是四个连续的空格，则删除的时候，要一次全部删除
@@ -316,7 +316,7 @@ zEditor.prototype = {
 		var me = this;
 		var $el = $(curTag);
 		var uid = me.createUnique();
-		var $pre = $('<pre name='+ uid +'><ul><li> </li></ul></pre>');
+		var $pre = $('<pre class="z-line-group" name='+ uid +'><ul><li> </li></ul></pre>');
 		var selection = document.getSelection && document.getSelection();
 		$pre.insertAfter($el);
 		$el.remove();
@@ -340,7 +340,6 @@ zEditor.prototype = {
 		//注意paste事件兼容性
 		$el.on("paste", function(ev){
 			var $target = $(ev.target);
-			console.log($target);
 			//如果在pre中粘贴：
 			if($target.closest('pre').length){
 				setTimeout(function(){
@@ -360,18 +359,20 @@ zEditor.prototype = {
 					selection.collapse(last, 1);
 				}, 0);
 			}
-			//在p或div中粘贴
-			else{
+			//在div中粘贴
+			else if($target.closest('div').length){
+				var $parent = $target.closest('div');
 				setTimeout(function(){
-					var $child = $el.children();
+					var $child = $parent.children();
 					$.each($child, function(key, val){
 						var $e = $(val);
 						var html = $e.html().replace(reg, '') || '<br>';
 						var name = me.createUnique();
-						var newHtml = '<p name="'+ name +'">'+ html +'</p>';
-						$(newHtml).insertAfter($e);
+						var newHtml = '<div class="z-line-group" name="'+ name +'">'+ html +'</div>';
+						$(newHtml).insertBefore($parent);
 						$e.remove();
 					});
+					$parent.remove();
 					var selection = document.getSelection && document.getSelection();
 					var last = $el.children().last()[0];
 					selection.collapse(last, 1);
@@ -379,33 +380,6 @@ zEditor.prototype = {
 			}
 			me.autoHeight();
 		});
-	},
-	//代码高亮
-	highLight: function(){
-		// var reg = /\s(function)\s/ig;
-		// var me = this;
-		// this.$el.keydown(function(ev){
-		// 	var _range = document.getSelection && document.getSelection();
-		// 	var _parent = _range.getRangeAt(0).commonAncestorContainer;
-		// 	var _tag = _parent.nodeType === 3 ? _parent.parentNode : _parent;
-		// 	var _tagName = _tag.tagName.toLowerCase();
-		// 	var text = "";
-		// 	while(_tagName != "div" && _tagName != "p" && _tagName != "pre" && _tagName != "li"){
-		// 		_tag = _tag.parentNode;
-		// 		_tagName = _tag.tagName.toLowerCase();
-		// 		//console.log(_tagName);
-		// 	};
-		// 	if(_tagName != "li"){
-		// 		return;
-		// 	}
-		// 	text = _tag.innerHTML;
-		// 	if(reg.test(text)){
-		// 		text = _tag.innerHTML.replace(reg, function($1){
-		// 			return ' <em>'+$1.replace(/\s/g, '')+'</em> ';
-		// 		});
-		// 		_tag.innerHTML = text;
-		// 	}
-		// });
 	}
 };
 

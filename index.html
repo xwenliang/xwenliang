@@ -3,6 +3,11 @@
 <head>
 	<meta charset="UTF-8">
 	<title><%= title %></title>
+	<meta name="description" content="记录web开发中遇到的各种问题，及解决问题的思路和过程。如果你有好的建议或想法，欢迎前来交流。如果你想找个小窝记录一下自己的故事，欢迎前来入驻。">
+	<meta name="keywords" content="web开发笔记,web开发,前端开发,html5,nodejs">
+	<meta name="author" content="zooble,wenliang.web@gmail.com">
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<link rel="shortcut icon" type="image/ico" href="/favicon.ico">
 	<link type="text/css" rel="stylesheet" href="/css/common.less">
 	<!--STYLE_PLACEHOLDER-->
 </head>
@@ -62,7 +67,14 @@
 		var userlist = require('pages/userlist');
 		var category = require('pages/category');
 		app.init();
-	</script>
 
+
+		(function(){
+			var script = document.createElement('script');
+			script.src = 'http://hm.baidu.com/hm.js?dac206318442217db8ecb1a7c7b74474';
+			document.body.appendChild(script);
+			document.body.removeChild(script);
+		})();
+	</script>
 </body>
 </html>
