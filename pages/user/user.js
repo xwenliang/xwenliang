@@ -146,11 +146,10 @@ app.view.user = app.view.extend({
 app.model.user = app.model.extend({
 	url: '/getUserPosts',
 	init: function(params, action){
-		//监听model的username
-		this.on('change:username, change:time', function(){
+		//监听数据刷新
+		this.on('change:time', function(){
 			this.fetchData(this.get('username'));
 		});
-		this.fetchData(params.username);
 	},
 	fetchData: function(username){
 		this.fetch({
