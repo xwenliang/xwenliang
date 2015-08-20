@@ -24,8 +24,6 @@ app.view.post = app.view.extend({
 		var postInfo = this.model.toJSON().data.post;
 		//清空之前的节点
 		this.$el.html('');
-		//重置滚动条位置
-		this.scrollPosY = 0;
 
 		$.ajax({
 			url: '/getUserInfo',
@@ -88,12 +86,6 @@ app.view.post = app.view.extend({
 			}
 		});
 	},
-	beforeAction: function(){
-
-	},
-	afterAction: function(){
-
-	},
 	like: function(e){
 		var me = this;
 		var $el = $(e.currentTarget);
@@ -123,8 +115,11 @@ app.view.post = app.view.extend({
 			}
 		});
 		this.model.pending = true;
-	}
-
+	}//,
+	//使用流氓手段，每次重新打开该页面就更新
+	// beforeAction: function(){
+	// 	this.model.set('time', Date.now());
+	// }
 });
 
 app.model.post = app.model.extend({
@@ -132,10 +127,13 @@ app.model.post = app.model.extend({
 	url: '/getPostInfo',
 	init: function(params, action){
 		//获取文章数据
-		this.getData(params.id);
+		// this.on('change:time', function(){
+		// 	this.getData(this.get('id'));
+		// });
 		this.on('change:id', function(){
 			this.getData(this.get('id'));
 		});
+		this.getData(params.id);
 	},
 	getData: function(id){
 		this.fetch({

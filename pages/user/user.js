@@ -136,20 +136,17 @@ app.view.user = app.view.extend({
 			//更换顶栏头像
 			app.$header.$('.js-u img').attr('src', img);
 		});
-	},
-	//使用流氓手段，每次更新个人中心内容
-	beforeAction: function(){
-		this.model.set('time', Date.now());
 	}
 });
 
 app.model.user = app.model.extend({
 	url: '/getUserPosts',
 	init: function(params, action){
-		//监听数据刷新
-		this.on('change:time', function(){
+		//监听model的username
+		this.on('change:username', function(){
 			this.fetchData(this.get('username'));
 		});
+		this.fetchData(params.username);
 	},
 	fetchData: function(username){
 		this.fetch({
