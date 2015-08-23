@@ -1,7 +1,7 @@
 //输出目录
 var dir = 'static';
 var domain = 'http://xwenliang.cn';
-var testDir = '/Users/zooble/Documents/case/xwenliang/3/static';
+var testDir = '/Users/zooble/Documents/case/xwenliang.cn/3/static';
 
 // fis.config.set('roadmap.relative', true);
 // fis.config.set('settings.postpackager.simple.autoReflow', true);
@@ -9,6 +9,10 @@ var testDir = '/Users/zooble/Documents/case/xwenliang/3/static';
 // fis.config.set('settings.postpackager.simple.output', 'pkg/pages_${hash}');
 fis.config.merge({
     statics: dir,
+    //排除某目录
+    // project: {
+    //     exclude: /^\/js\/ace\//i
+    // },
     /* zoo-command-install 要实现的功能
     requires: [
         'jQuery@1.11.3'

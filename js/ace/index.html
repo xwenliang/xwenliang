@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+    <script>
+    var require = {
+        resourceMap: function(map){
+
+        }
+    };
+    </script>
+	<style>
+		#editor{
+	        position: absolute;
+	        width: 500px;
+	        height: 400px;
+	    }
+	</style>
+</head>
+<body>
+<div id="editor">
+//some text;
+var a = function(){
+	var abc = 1;
+}</div>
+
+    <script src="src/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="src/theme-twilight.js" type="text/javascript" charset="utf-8"></script>
+    <script src="src/mode-less.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+        var editor = ace.edit("editor");
+        var JavaScriptMode = ace.require("ace/mode/less").Mode;
+        editor.setTheme("ace/theme/monokai");
+    	editor.getSession().setMode(new JavaScriptMode());
+    	//关闭错误提示
+    	editor.getSession().setUseWorker(false);
+    	console.log(editor.getValue());
+    	editor.insert("//Something cool");
+    </script>
+</body>
+</html>
