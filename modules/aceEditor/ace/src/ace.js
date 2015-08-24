@@ -34,6 +34,14 @@
  * @param payload a function to call with (require, exports, module) params
  */
 
+
+/**
+ * wrap the scope
+ * add by zooble
+ */
+(function(){
+
+
 (function() {
 
 var ACE_NAMESPACE = "";
@@ -18511,4 +18519,8 @@ exports.UndoManager = UndoManager;
                         window.ace[key] = a[key];
                 });
             })();
+
+
+
+})();
         

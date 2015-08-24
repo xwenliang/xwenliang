@@ -6,6 +6,7 @@ var B = require('Backbone');
 var app = require('app');
 var util = require('util');
 var zEditor = require('zEditor');
+var aceEditor = require('aceEditor');
 
 app.view.newpost = app.view.extend({
 

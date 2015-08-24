@@ -73,6 +73,13 @@ fis.config.merge({
                 isMod: false,
                 release: '${statics}/$&'
             },
+            //其他js文件
+            {
+                reg: /.*\.js/i,
+                isMod: false,
+                useCompile: false,
+                release: '${statics}/$&'
+            },
             //css文件
             {
                 reg: /^(.*)\.(css|less)$/i,
