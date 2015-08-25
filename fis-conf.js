@@ -51,6 +51,25 @@ fis.config.merge({
                 isMod: false,
                 release: '${statics}/$&'
             },
+            //ace编辑器
+            {
+                reg: /^\/modules\/(ace)\/([^\/]+)\.js/i,
+                isMod: true,
+                id: '$1/$2',
+                release: '${statics}/$&'
+            },
+            {
+                reg: /^\/modules\/(ace)\/([^\/]+)\/([^\/]+)\.js/i,
+                isMod: true,
+                id: '$1/$2/$3',
+                release: '${statics}/$&'
+            },
+            {
+                reg: /^\/modules\/(ace)\/([^\/]+)\/([^\/]+)\/([^\/]+)\.js/i,
+                isMod: true,
+                id: '$1/$2/$3/$4',
+                release: '${statics}/$&'
+            },
             //公共组件
             {
                 reg: /^\/modules\/([^\/]+)\/(?:[^\/]+)\.js$/i,
@@ -71,13 +90,6 @@ fis.config.merge({
             {
                 reg: /^\/pages\/.+\.js$/i,
                 isMod: false,
-                release: '${statics}/$&'
-            },
-            //其他js文件
-            {
-                reg: /.*\.js/i,
-                isMod: false,
-                useCompile: false,
                 release: '${statics}/$&'
             },
             //css文件
@@ -125,6 +137,9 @@ fis.config.merge({
         ]
     },
     pack: {
+        'pkg/editor.js': [
+            'modules/ace/**.js'
+        ],
         'pkg/common.js': [
             'js/mod.js',
             'modules/**.js'

@@ -1,3 +1,4 @@
+<div id="editor"></div>
 <div class="content">
 	<div class="w fix">
 

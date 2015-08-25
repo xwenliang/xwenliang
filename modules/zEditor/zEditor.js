@@ -8,6 +8,7 @@
 
 var $ = require('jquery');
 var util = require('util');
+var aceEditor = require('aceEditor');
 
 function zEditor(cfg){
 	if(!(this instanceof zEditor)){
@@ -316,11 +317,15 @@ zEditor.prototype = {
 		var me = this;
 		var $el = $(curTag);
 		var uid = me.createUnique();
-		var $pre = $('<pre class="z-line-group" name='+ uid +'><ul><li> </li></ul></pre>');
-		var selection = document.getSelection && document.getSelection();
-		$pre.insertAfter($el);
+		var elemId = 'ace'+uid;
+		var $div = $('<div id="'+elemId+'" class="z-line-group" name='+ uid +'></div>');
+		$div.insertAfter($el);
 		$el.remove();
-		selection.collapse($pre.find('li')[0], 0);
+		aceEditor.create({
+			elem: document.getElementById(elemId),
+			language: 'javascript'
+		});
+		
 	},
 	//可编辑div根据内容自动伸长
 	autoHeight: function(e){

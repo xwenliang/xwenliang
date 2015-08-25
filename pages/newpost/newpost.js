@@ -6,7 +6,6 @@ var B = require('Backbone');
 var app = require('app');
 var util = require('util');
 var zEditor = require('zEditor');
-var aceEditor = require('aceEditor');
 
 app.view.newpost = app.view.extend({
 
@@ -31,6 +30,7 @@ app.view.newpost = app.view.extend({
 		setTimeout(function(){
 			new zEditor({container: '#zEditor'});
 		}, 1000);
+
 	},
 	render: function(){
 		var data = this.model.toJSON().data;

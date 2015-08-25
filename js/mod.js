@@ -37,7 +37,11 @@ var require, define;
         }
     }
 
-    define = function(id, factory) {
+    define = function(id, deps, factory) {
+        if(arguments.length === 2){
+            factory = deps;
+        }
+
         factoryMap[id] = factory;
 
         var queue = loadingMap[id];
