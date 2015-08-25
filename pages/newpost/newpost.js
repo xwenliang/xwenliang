@@ -15,6 +15,7 @@ app.view.newpost = app.view.extend({
 	},
 	init: function(params, action){
 		var me = this;
+		this.editor = null;
 		this.tpl = __inline('tpl/newpost.tpl');
 		//新建文章
 		if(params.id === 'new'){
@@ -25,12 +26,10 @@ app.view.newpost = app.view.extend({
 			//传来了id，需要进行文章编辑
 			this.listenTo(this.model, 'change:data', this.render);
 		}
-		
 		//初始化编辑器，因为切页动画，页面不会立即展示，编辑器工具栏的位置计算会有问题，所以延时
 		setTimeout(function(){
-			new zEditor({container: '#zEditor'});
+			me.editor = new zEditor({container: '#zEditor'});
 		}, 1000);
-
 	},
 	render: function(){
 		var data = this.model.toJSON().data;
@@ -96,7 +95,7 @@ app.view.newpost = app.view.extend({
 			data: {
 				postId: this.model.get('id'),
 				title: title,
-				content: this.$('.workplace').html(),
+				content: me.editor.getContent(),
 				category: this.$('#category').val(),
 				status: data.status,
 				tags: tags

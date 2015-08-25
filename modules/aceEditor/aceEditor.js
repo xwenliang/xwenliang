@@ -12,14 +12,15 @@ var options = {
 	elem: null,
 	language: 'javascript',
 	theme: 'monokai',
+	readOnly: false,
 	minLines: 5,
 	maxLines: Infinity,
 	highlightActiveLine: false
 };
 
 var aceEditor = {
-	create: function(opt){
-
+	create: function(opt, callback){
+		var me = this;
 		var opt = $.extend({}, options, opt);
 		require.async(['ace/ace', 'ace/mode/'+opt.language, 'ace/theme/monokai'], function(ace, language){
 			var editor = ace.edit(opt.elem);
@@ -42,12 +43,14 @@ var aceEditor = {
 		    //editor.resize()
 		    //设置编辑器的行数为无穷大，即可自适应高度
 		    editor.setOptions({
+		    	readOnly: opt.readOnly,
 		        minLines: opt.minLines,
 		        maxLines: opt.maxLines,
 		        highlightActiveLine: opt.highlightActiveLine
 		    });
-		});
 
+		    callback && callback(editor);
+		});
 	},
 	destroy: function(editor){
 

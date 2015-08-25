@@ -4,6 +4,7 @@
 var $ = require('jquery');
 var app = require('app');
 var util = require('util');
+var aceEditor = require('aceEditor');
 
 app.view.post = app.view.extend({
 
@@ -62,6 +63,7 @@ app.view.post = app.view.extend({
 				str.fadeIn(500);
 			}
 		});
+		this.createEditor();
 	},
 	getLikeUserInfo: function(users){
 		if(!users.length){
@@ -115,7 +117,22 @@ app.view.post = app.view.extend({
 			}
 		});
 		this.model.pending = true;
-	}//,
+	},
+	//还原代码编辑器
+	createEditor: function(){
+		var $line = this.$el.find('.z-line-group');
+		$line.each(function(key, val){
+			var $val = $(val);
+			if($val.hasClass('ace')){
+				aceEditor.create({
+					elem: val,
+					language: 'javascript',
+					readOnly: false
+				});
+			}
+		});
+	}
+	//,
 	//使用流氓手段，每次重新打开该页面就更新
 	// beforeAction: function(){
 	// 	this.model.set('time', Date.now());

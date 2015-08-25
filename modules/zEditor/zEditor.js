@@ -56,7 +56,7 @@ zEditor.prototype = {
 		me.autoHeight();
 		me.filterPaste();
 	},
-	//创建独一的uid
+	//创建唯一的uid
 	createUnique: function(){
 		var me = this,
 			uidpre = me.uniqueArr.length ? ++me.uniqueArr[me.uniqueArr.length - 1].split('-')[0] : '0',
@@ -65,7 +65,7 @@ zEditor.prototype = {
 		me.uniqueArr.push(uid);
 		return uid;
 	},
-	//生成第一个p，并将光标置于改p的初始位置
+	//生成第一行，并将光标置于该行的初始位置
 	createFirstP: function(){
 		var me = this;
 		var selection = document.getSelection && document.getSelection();
@@ -82,12 +82,12 @@ zEditor.prototype = {
 		var parent = selection.getRangeAt(0).commonAncestorContainer;
 		//当光标所在的位置为空文本时，其commonAncestorContainer为最外层可编辑div，不为空，才是文本节点
 		var tag = parent.nodeType === 3 ? parent.parentNode : parent;
-		while(tag.parentNode && tag.tagName != 'DIV' && tag.tagName != 'PRE' && tag.tagName != 'LI'){
+		while(tag.parentNode && tag.tagName != 'DIV'){
 			tag = tag.parentNode;
 		};
 		//对tag修正
-		if(tag.tagName != 'DIV' && tag.tagName != 'PRE' && tag.tagName != 'LI'){
-			tag = me.$el.find('div[cur=true]')[0] || me.$el.find('pre[cur=true]')[0] || me.$el.find('li[cur=true]')[0];
+		if(tag.tagName != 'DIV'){
+			tag = me.$el.find('div[cur=true]')[0];
 		}
 		else{
 			$(tag).attr('cur', true).siblings().removeAttr('cur');
@@ -170,8 +170,10 @@ zEditor.prototype = {
 			opt = me.opt,
 			$el = $(curTag),
 			height = me.$tool.outerHeight();
-
-		if(!$el.text() && curTag && curTag.tagName == 'DIV'){
+		//滚动条放到各个view身上了，那么编辑器的父元素的offset会跟着该view上下滚动而发生变化
+		opt.offset = me.$el.offset();
+		//该行没有内容，并且不是代码编辑器，才显示工具栏
+		if(!$el.text() && !$el.closest('.ace').length){
 			me.$tool.show();
 			me.$tool.css('top', $el.offset().top - opt.offset.top + opt.parentPaddingTop + (opt.lineHeight - height)/2 - 1);
 		}
@@ -201,9 +203,9 @@ zEditor.prototype = {
 			if(e.isTrigger){
 				return ;
 			}
-			//在pre之后插入p (仅当鼠标点击非pre区，并且pre为最后一个子节点时插入)
+			//在代码编辑器之后插入新行 (仅当鼠标点击非代码编辑器区，并且代码编辑器为最后一个子节点时插入)
 			var last = $(this).children().last();
-			if(last[0].tagName === "PRE" && e.target.tagName === 'SECTION'){
+			if(last.hasClass('ace') && e.target.tagName === 'SECTION'){
 				var selection = document.getSelection && document.getSelection();
 				var uid = me.createUnique();
 				var $p = $('<div class="z-line-group" name='+ uid +'><br></div>');
@@ -234,69 +236,29 @@ zEditor.prototype = {
 			switch(ev.keyCode){
 				//删除键控制
 				case 8:
-					//当前标签是pre，并且其内容为空，则将其删除
-					var tagParent = tag.tagName === 'LI' ? tag.parentNode.parentNode : tag;
-					if(tagParent.tagName === 'PRE' && ($(tagParent).text() === ' ' || !$(tagParent).text())){
+					//当前标签是代码编辑器，并且其内容为空，则将其删除
+					var $ace = $(tag).closest('.ace');
+					if($ace.length && $ace.find('.ace_text-layer').text() === ''){
 						var selection = document.getSelection && document.getSelection();
 						var uid = me.createUnique();
-						var $p = $('<div class="z-line-group" name="'+ uid +'" cur="true"><br></div>');
-						$p.insertAfter($(tagParent));
-						selection.collapse($p[0], 0);
-						$(tagParent).remove();
+						var $div = $('<div class="z-line-group" name="'+ uid +'" cur="true"><br></div>');
+						$div.insertAfter($ace);
+						selection.collapse($div[0], 0);
+						$ace.remove();
 						ev.preventDefault();
 						ev.stopPropagation();
 						return false;
 					}
-					//只有一个p，并且其内容为空，则禁止删除
-					if($(this).find("p").length <= 1 && $(this).find("div").html() === '<br>' && !$(this).find("pre").length){
+					//只有一行，并且其内容为空，则禁止删除
+					if($(this).find("div").length <= 1 && $(this).find("div").html() === '<br>' && !$(this).find(".ace").length){
 						return false;
 					}
-					/*todo 如果是四个连续的空格，则删除的时候，要一次全部删除
-					if(tag.tagName === 'Li'){
-					}*/
 					break;
 				//enter键控制
 				case 13:
-					setTimeout(function(){
-						//换行后，生成另外一个带有uid的p或pre
-						var tag = me.getCurTag();
-						var uid = me.createUnique();
-						$(tag).attr("name", uid);
-						//在pre中，当前行内无内容，再次enter会跳出pre的li...所以在换行后 给重新生成的li一个空格
-						if(tag.tagName === 'LI'){
-							if(tag.innerHTML === '<br>'){
-								tag.innerHTML = ' ';
-							}
-							if(tag.previousSibling && (tag.previousSibling.innerHTML === '<br>')){
-								tag.previousSibling.innerHTML = ' ';
-							}
-						}
-					}, 0);
 					break;
 				//tab控制
 				case 9:
-					ev.preventDefault();
-					ev.stopPropagation();
-					//pre中代码的tab缩进
-					/*if(tag.tagName === 'LI'){
-						var range = document.getSelection && document.getSelection(),
-							curIndex = range.baseOffset,
-							html = tag.innerHTML,
-							prevHtml = html.substr(0, curIndex),
-							nextHtml = html.substring(curIndex, html.length);
-							tag.innerHTML = prevHtml + '    ' + nextHtml;
-						range.collapse(tag, 1);
-					}*/
-					if(tag.tagName === 'LI'){
-						var selection = document.getSelection && document.getSelection(),
-							range = selection.getRangeAt(0),
-							span = document.createElement('span');
-						span.className = 'tab';
-						span.innerHTML = '    ';
-						range.insertNode(span);
-						selection.collapse(span, 1);
-					}
-
 					break;
 				default:
 					console.log('not capture!');
@@ -317,15 +279,19 @@ zEditor.prototype = {
 		var me = this;
 		var $el = $(curTag);
 		var uid = me.createUnique();
-		var elemId = 'ace'+uid;
-		var $div = $('<div id="'+elemId+'" class="z-line-group" name='+ uid +'></div>');
+		var editorId= 'ace-'+uid;
+		var $div = $('<div class="z-line-group ace" name='+ uid +' data-editorId="'+editorId+'"></div>');
 		$div.insertAfter($el);
 		$el.remove();
-		aceEditor.create({
-			elem: document.getElementById(elemId),
+		//创建代码编辑器，todo支持插入多种语言高亮的编辑器
+		var editor = aceEditor.create({
+			elem: $div[0],
 			language: 'javascript'
+		}, function(editor){
+			//保存这个编辑器对象，方便后面获取其value
+			me.aceEditors = me.aceEditors || {};
+			me.aceEditors[editorId] = editor;
 		});
-		
 	},
 	//可编辑div根据内容自动伸长
 	autoHeight: function(e){
@@ -345,27 +311,8 @@ zEditor.prototype = {
 		//注意paste事件兼容性
 		$el.on("paste", function(ev){
 			var $target = $(ev.target);
-			//如果在pre中粘贴：
-			if($target.closest('pre').length){
-				setTimeout(function(){
-					$target = $(me.getCurTag());
-					var $pre = $target.closest('pre');
-					var $child = $pre.find('li');
-					var temp = [];
-					$.each($child, function(key, val){
-						var $e = $(val);
-						var html = $e.html().replace(reg, '') || '';
-						temp.push('<li>'+ html +'</li>');
-					});
-					$pre.html('');
-					$pre.append('<ul>'+ temp.join('') +'</ul>');
-					var selection = document.getSelection && document.getSelection();
-					var last = $pre.find('li').last()[0];
-					selection.collapse(last, 1);
-				}, 0);
-			}
-			//在div中粘贴
-			else if($target.closest('div').length){
+			//如果不在代码编辑器中粘贴
+			if(!$target.closest('.ace').length){
 				var $parent = $target.closest('div');
 				setTimeout(function(){
 					var $child = $parent.children();
@@ -378,13 +325,31 @@ zEditor.prototype = {
 						$e.remove();
 					});
 					$parent.remove();
-					var selection = document.getSelection && document.getSelection();
-					var last = $el.children().last()[0];
-					selection.collapse(last, 1);
+					// var selection = document.getSelection && document.getSelection();
+					// var last = $el.children().last()[0];
+					// selection.collapse(last, 1);
 				}, 0);
 			}
 			me.autoHeight();
 		});
+	},
+	//获取页面的编辑内容，主要过滤掉ace编辑器的一些节点，等到复原的时候利用ace的insert方法还原
+	getContent: function(){
+		var me = this;
+		var $el = this.$el.clone();
+		var $lines = $el.find('.z-line-group');
+		//将编辑器过滤
+		$lines.each(function(key, val){
+			var $val = $(val);
+			if($val.hasClass('ace')){
+				var editorId = $val.attr('data-editorId');
+				$val.html(me.aceEditors[editorId].getValue());
+			}
+		});
+
+		var html = $el.html();
+		$el.remove();
+		return html;
 	}
 };
 
