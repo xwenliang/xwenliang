@@ -293,6 +293,27 @@ zEditor.prototype = {
 			me.aceEditors[editorId] = editor;
 		});
 	},
+	//还原代码编辑器
+	revertAceEditor: function(options){
+		var opt = $.extend({}, {
+			parent: null,
+			language: 'javascript',
+			readOnly: false
+		}, options);
+
+		var $parent = opt.parent ? $(opt.parent) : $(document);
+		var $line = $parent.find('.z-line-group');
+		$line.each(function(key, val){
+			var $val = $(val);
+			if($val.hasClass('ace')){
+				aceEditor.create({
+					elem: val,
+					language: opt.language,
+					readOnly: opt.readOnly
+				});
+			}
+		});
+	},
 	//可编辑div根据内容自动伸长
 	autoHeight: function(e){
 		var me = this,

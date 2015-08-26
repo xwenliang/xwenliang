@@ -14,9 +14,9 @@
 			</div>
 			
 			<div class="post-content artical" id="zEditor">
-				<div tabIndex="4" class="workplace" contenteditable="true">
+				<section tabIndex="4" class="workplace" contenteditable="true">
 					<%= data.post.content %>
-				</div>
+				</section>
 			</div>
 			<div class="post-ui fix">
 				<div class="ui-cancel l"><a class="gray" href="/">取消</a></div>
