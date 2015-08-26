@@ -9,9 +9,10 @@ var testDir = '/Users/zooble/Documents/case/xwenliang.cn/3/static';
 // fis.config.set('settings.postpackager.simple.output', 'pkg/pages_${hash}');
 fis.config.merge({
     statics: dir,
-    //排除某目录
+    //设置/排除某目录
     // project: {
-    //     exclude: /^\/js\/ace\//i
+    //     include:
+    //     exclude:
     // },
     /* zoo-command-install 要实现的功能
     requires: [
