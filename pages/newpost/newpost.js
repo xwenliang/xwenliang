@@ -21,17 +21,15 @@ app.view.newpost = app.view.extend({
 		if(params.id === 'new'){
 			this.$el.html(this.tpl());
 			this.rendCategory();
+			this.initEditor();
 		}
 		else{
 			//传来了id，需要进行文章编辑
 			this.listenTo(this.model, 'change:data', this.render);
 		}
 	},
-	render: function(){
-		var data = this.model.toJSON().data;
-		this.$el.html(this.tpl(data));
-		this.rendCategory(data.post.category);
-		//初始化编辑器，因为切页动画，页面不会立即展示，编辑器工具栏的位置计算会有问题，所以延时
+	initEditor: function(){
+		//初始化编辑器
 		this.editor = new zEditor({container: '#zEditor'});
 		//如果有内容，则需要还原代码编辑器
 		this.editor.revertAceEditor({
@@ -39,6 +37,12 @@ app.view.newpost = app.view.extend({
 			language: 'javascript',
 			readOnly: false
 		});
+	},
+	render: function(){
+		var data = this.model.toJSON().data;
+		this.$el.html(this.tpl(data));
+		this.rendCategory(data.post.category);
+		this.initEditor();
 	},
 	rendCategory: function(category){
 		var me = this;
