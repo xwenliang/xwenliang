@@ -36,9 +36,10 @@ app.view.user = app.view.extend({
 		$.get('/getUserInfo', {arr: [username]}, function(ret){
 			if(ret.data.userArr && ret.data.userArr.length){
 				var user = ret.data.userArr[0];
+				var isAuthor = ret.data.curUser ? (ret.data.curUser.username === user.username ? true : false) : false;
 				user.img = user.img === 'default' ? __uri('../../img/img.jpg') : user.img;
 				me.$('.js-user').html(tpl({
-					isAuthor: ret.data.curUser.username === user.username ? true : false,
+					isAuthor: isAuthor,
 					user: user
 				}));
 			}
