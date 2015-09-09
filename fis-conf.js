@@ -7,6 +7,10 @@ var testDir = '/Users/zooble/Documents/case/xwenliang.cn/3/static';
 // fis.config.set('settings.postpackager.simple.autoReflow', true);
 // fis.config.set('settings.postpackager.simple.autoCombine', true);
 // fis.config.set('settings.postpackager.simple.output', 'pkg/pages_${hash}');
+fis.config.set('project.fileType.text', 'jsx');
+fis.config.set('modules.parser.jsx', 'react');
+fis.config.set('roadmap.ext.jsx', 'js');
+
 fis.config.merge({
     statics: dir,
     //设置/排除某目录
@@ -85,6 +89,13 @@ fis.config.merge({
                 reg: /^\/(pages)\/([^\/]+)\/(?:[^\/]+)\.js$/i,
                 isMod: true,
                 id: '$1/$2',
+                release: '${statics}/$&'
+            },
+            //react 组件
+            {
+                reg: /^\/(pages)\/([^\/]+)\/([^\/]+)\.jsx$/i,
+                isMod: true,
+                id: '$1/$2/$3',
                 release: '${statics}/$&'
             },
             //业务逻辑中的其他js文件
