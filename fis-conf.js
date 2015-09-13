@@ -75,7 +75,7 @@ fis.config.merge({
                 id: '$1/$2/$3/$4',
                 release: '${statics}/$&'
             },
-            //公共组件
+            //公共模块
             {
                 reg: /^\/modules\/([^\/]+)\/(?:[^\/]+)\.js$/i,
                 //是组件化的，会被jswrapper包装
@@ -84,18 +84,20 @@ fis.config.merge({
                 id: '$1',
                 release: '${statics}/$&'
             },
-            //业务逻辑模块(一级路由)
+            //组件
             {
-                reg: /^\/(pages)\/([^\/]+)\/(?:[^\/]+)\.js$/i,
+                reg: /^\/(components)\/([^\/]+)\/(?:[^\/]+)\.jsx$/i,
+                //是组件化的，会被jswrapper包装
                 isMod: true,
+                //id为文件夹名
                 id: '$1/$2',
                 release: '${statics}/$&'
             },
-            //react 组件
+            //业务逻辑模块(一级路由)
             {
-                reg: /^\/(pages)\/([^\/]+)\/([^\/]+)\.jsx$/i,
+                reg: /^\/(pages)\/([^\/]+)\/(?:[^\/]+)\.jsx*$/i,
                 isMod: true,
-                id: '$1/$2/$3',
+                id: '$1/$2',
                 release: '${statics}/$&'
             },
             //业务逻辑中的其他js文件

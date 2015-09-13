@@ -21,6 +21,12 @@ app.view.index = app.view.extend({
 		//获取灌水
 		this.renderWater();
 
+		var Comment = require('components/comment');
+		React.render(
+			<Comment title="灌水" maxLen="700"/>,
+			document.getElementById('water')
+		);
+
 		// var Test = React.createClass({
 		// 	render: function(){
 		// 		return (
@@ -79,9 +85,9 @@ app.view.index = app.view.extend({
 	renderWater: function(){
 		var tpl = this.waterTpl = __inline('tpl/water.tpl');
 		var $el = this.$('.js-water');
-		$.get('/getWater', {len: 4}, function(ret){
-			$el.html(tpl(ret.data));
-		});
+		// $.get('/getWater', {len: 4}, function(ret){
+		// 	$el.html(tpl(ret.data));
+		// });
 	},
 	publishWater: function(e){
 		var $ul = this.$('.js-water');

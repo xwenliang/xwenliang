@@ -1,3 +1,8 @@
+@blue: #3b9c15;
+@black: #333;
+@gray: #999;
+@grayer: #efefef;
+
 .page-index{
 	padding-top: 20px;
 	.c-l-li{
@@ -22,7 +27,7 @@
 			position: absolute;
 			right: 15px;
 			top: 15px;
-			color: #999;
+			color: @gray;
 		}
 		.box-foot{
 			>a,
@@ -37,29 +42,29 @@
 			margin-bottom: 5px;
 			font-weight: bold;
 			font-size: 16px;
-			color: #3b9c15;
+			color: @blue;
 			display: inline-block;
-			border-bottom: 2px solid #3b9c15;
+			border-bottom: 2px solid @blue;
 		}
 		.water-ul{
 			margin-bottom: 15px;
 			li{
 				padding: 8px 0 2px;
 				position: relative;
-				border-bottom: 1px solid #efefef;
+				border-bottom: 1px solid @grayer;
 			}
 			.wname{
-				color: #3b9c15;
+				color: @blue;
 				a{
-					color: #3b9c15;
+					color: @blue;
 				}
 			}
 			.wtext{
 				display: inline;
-				color: #333;
+				color: @black;
 			}
 			.wdate{
-				color: #999;
+				color: @gray;
 			}
 			.whide{
 				display: none;
@@ -71,15 +76,15 @@
 				width: 256px;
 				height: 100px;
 				overflow: hidden;
-				border: 1px solid #3b9c15;
+				border: 1px solid @blue;
 				resize: none;
 				outline: medium;
 				padding: 5px;
 				font: normal 14px/1.5 'Menlo', Arial, '\5FAE\8F6F\96C5\9ED1', '\5b8b\4f53';
-				color: #333;
+				color: @black;
 			}
 			.water-tips{
-				color: #aaa;
+				color: @gray;
 				margin-top: 4px;
 				.num{
 					font-weight: bold;
@@ -89,7 +94,7 @@
 					color: red;
 				}
 				.water-ul .wname{
-					color: #3b9c15;
+					color: @blue;
 				}
 			}
 		}
