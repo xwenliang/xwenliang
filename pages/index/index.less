@@ -1,104 +1,116 @@
-@blue: #3b9c15;
-@black: #333;
-@gray: #999;
-@grayer: #efefef;
+@import '../../css/settings.less';
 
 .page-index{
 	padding-top: 20px;
-	.c-l-li{
-		position: relative;
-		line-height: 24px;
-		text-align: left;
-		.title{
-			max-width: 480px;
-			padding-bottom: 5px;
-			a{
-				display: inline-block;
-				vertical-align: middle;
-				max-width: 100%;
-				overflow: hidden;
-				font-weight: bold;
-				white-space: nowrap;
-				font-size: 16px;
-				text-overflow: ellipsis;
-			}
-		}
-		.total{
-			position: absolute;
-			right: 15px;
-			top: 15px;
-			color: @gray;
-		}
-		.box-foot{
-			>a,
-			>span{
-				line-height: 1.2;
-			}
-		}
-	}
-	.c-r-water{
-		padding: 10px 15px;
-		.tit{
-			margin-bottom: 5px;
-			font-weight: bold;
-			font-size: 16px;
-			color: @blue;
-			display: inline-block;
-			border-bottom: 2px solid @blue;
-		}
-		.water-ul{
-			margin-bottom: 15px;
-			li{
-				padding: 8px 0 2px;
-				position: relative;
-				border-bottom: 1px solid @grayer;
-			}
-			.wname{
-				color: @blue;
+	padding-bottom: 50px;
+	.artical{
+		float: left;
+		width: 680px;
+		.item{
+			position: relative;
+			margin-bottom: 20px;
+			line-height: 24px;
+			text-align: left;
+			.title{
+				max-width: 480px;
+				padding-bottom: 5px;
 				a{
-					color: @blue;
-				}
-			}
-			.wtext{
-				display: inline;
-				color: @black;
-			}
-			.wdate{
-				color: @gray;
-			}
-			.whide{
-				display: none;
-			}
-		}
-		.water-input{
-			text-align: right;
-			textarea{
-				width: 256px;
-				height: 100px;
-				overflow: hidden;
-				border: 1px solid @blue;
-				resize: none;
-				outline: medium;
-				padding: 5px;
-				font: normal 14px/1.5 'Menlo', Arial, '\5FAE\8F6F\96C5\9ED1', '\5b8b\4f53';
-				color: @black;
-			}
-			.water-tips{
-				color: @gray;
-				margin-top: 4px;
-				.num{
+					display: inline-block;
+					vertical-align: middle;
+					max-width: 100%;
+					overflow: hidden;
 					font-weight: bold;
-					padding: 0 2px;
+					white-space: nowrap;
+					font-size: 16px;
+					text-overflow: ellipsis;
 				}
-				.redb{
-					color: red;
+			}
+			.total{
+				position: absolute;
+				right: 15px;
+				top: 12px;
+				color: @color-font-sub;
+				.tag{
+					margin-left: 10px;
 				}
-				.water-ul .wname{
-					color: @blue;
+			}
+			.box-foot{
+				text-align: right;
+				line-height: 1.2;
+				>span,>a{
+					line-height: 1.2;
 				}
 			}
 		}
 	}
+	.right{
+		float: right;
+		width: 300px;
+		.water{
+			padding: 10px 15px;
+			.tit{
+				margin-bottom: 5px;
+				font-weight: bold;
+				font-size: 16px;
+				color: @color-font-tit;
+				display: inline-block;
+				border-bottom: 2px solid @color-font-tit;
+			}
+			.water-ul{
+				margin-bottom: 15px;
+				li{
+					padding: 8px 0 2px;
+					position: relative;
+					border-bottom: 1px solid #efefef;
+				}
+				.wname{
+					color: @color-font-tit;
+					a{
+						color: @color-link;
+					}
+				}
+				.wtext{
+					display: inline;
+					color: @color-font;
+				}
+				.wdate{
+					color: @color-font-sub;
+				}
+				.whide{
+					display: none;
+				}
+			}
+			.water-input{
+				text-align: right;
+				textarea{
+					width: 256px;
+					height: 100px;
+					overflow: hidden;
+					border: 1px solid @color-font-tit;
+					resize: none;
+					outline: medium;
+					padding: 5px;
+					font: normal 14px/1.5 'Menlo', Arial, '\5FAE\8F6F\96C5\9ED1', '\5b8b\4f53';
+					color: @color-font;
+				}
+				.water-tips{
+					color: @color-font-sub;
+					margin-top: 4px;
+					.num{
+						font-weight: bold;
+						padding: 0 2px;
+					}
+					.redb{
+						color: red;
+					}
+					.water-ul .wname{
+						color: @color-font-tit;
+					}
+				}
+			}
+		}
+	}
+	
 	.more{
 		text-align: center;
 		a{

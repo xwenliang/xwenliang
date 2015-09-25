@@ -4,8 +4,9 @@
  * @ Email: wenliang.web@gmail.com
  * @ Date: 2013-5-6
  */
-@charset "utf-8";
-@import "base.mixin.less";
+@charset 'utf-8';
+@import 'base.mixin.less';
+@import 'settings.less';
 
 html{
 	min-height: 100%;
@@ -17,7 +18,7 @@ body{
 	margin: 0;
 	padding: 0;
 	font: normal 14px/1.5 'Menlo', Arial, '\5FAE\8F6F\96C5\9ED1', '\5b8b\4f53';
-	background: #f9f9f9;
+	background: @color-bg;
 }
 p,ol,ul,li,dt,dd,dl,pre,form,fieldset,input,textarea,blockquote,em,i,b,hr,h1,h2,h3,h4,h5,h6{
 	margin: 0;
@@ -44,17 +45,17 @@ input,button,a{
 	background: none;
 	outline: medium;
 	text-decoration: none;
-	color: #333;
+	color: @color-font;
 	font: normal 14px/1.5 'Menlo', Arial, '\5FAE\8F6F\96C5\9ED1', '\5b8b\4f53';
 }
 button,a{
 	cursor: pointer;
 }
 a:hover{
-	color: #48a623;
+	color: @color-link;
 }
 input{
-	border: 1px solid #ddd;
+	border: 1px solid #dadada;
 	padding: 0 5px;
 	height: 24px;
 }
@@ -62,93 +63,18 @@ img{
 	vertical-align: top;
 	border: none;
 }
-pre{
-	position: relative;
-	min-height: 110px;
-	padding: 5px;
-	background: #272822;
-	font: normal 14px/22px 'Menlo', 'Consolas';
-}
-pre::after{
-	content: '.';
-	font-size: 0;
-	line-height: 0;
-	position: absolute;
-	left: 0;
-	width: 40px;
-	top: 0;
-	bottom: 0;
-	background: rgba(66,66,66,0.6);
-}
-pre ul{
-	border-left: 1px dashed #3b3c33;
-	list-style: decimal;
-	margin-left: 35px;
-	padding-left: 10px;
-	padding-right: 20px;
-	color: #8f908a;
-}
-pre ul li{
-	word-wrap: break-word;
-	color: #bbb;
-}
-.artical pre{
-	min-height: 20px;
-}
+
 .fix{
 	zoom: 1;
 	&::after{
 		content: ' ';
 		font-size: 0;
+		line-height: 0;
 		height: 0;
 		visibility: hidden;
 		display: block;
 		clear: both;
 	}
-}
-.l{
-	float: left;
-}
-.r{
-	float: right;
-}
-.fontl{
-	text-align: left;
-	color: #999;
-	a{
-		color: #999;
-	}
-}
-.fontr{
-	text-align: right;
-	color: #999;
-	a{
-		color: #999;
-	}
-}
-.mart10{
-	margin-top: 10px;
-}
-.mart20{
-	margin-top: 20px;
-}
-.marb10{
-	margin-bottom: 10px;
-}
-.marb20{
-	margin-bottom: 20px;
-}
-.marl10{
-	margin-left: 10px;
-}
-.marl20{
-	margin-left: 20px;
-}
-.marr10{
-	margin-right: 10px;
-}
-.marr20{
-	margin-right: 20px;
 }
 .hide{
 	display: none;
@@ -165,11 +91,10 @@ pre ul li{
 }
 .gray{
 	background: #efefef;
-	order-color: #dadada;
-	color: #333;
+	color: @color-font;
 	&:hover{
 		background: #e6e6e6;
-		color: #333;
+		color: @color-link;
 	}
 }
 .green{
@@ -193,12 +118,12 @@ pre ul li{
 	cursor: default;
 }
 
-.w{
+.wrap{
 	width: 1000px;
 	margin: 0 auto;
 }
-.s{
-	padding: 15px;
+.box{
+	padding: 10px 15px;
 	background: #fbfbfb;
 	border: 1px solid #fff;
 	box-shadow: 0 0 10px #dfdfdf;
@@ -212,15 +137,6 @@ pre ul li{
 	background: #999;
 	margin: 6px 10px 0;
 }
-.c-l{
-	width: 680px;
-}
-.c-r{
-	width: 300px;
-}
-.wrapper{
-	margin-top: 42px;
-}
 .ib-wrap{
 	font-size: 0;
 	>span,
@@ -231,10 +147,10 @@ pre ul li{
 		letter-spacing: normal;
 		word-spacing: normal;
 		font-size: 14px;
-		color: #999;
+		color: @color-font-sub;
 	}
-	a:hover{
-		color: #3b9c15;
+	>a:hover{
+		color: @color-link;
 	}
 }
 

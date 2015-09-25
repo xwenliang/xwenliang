@@ -23,45 +23,9 @@ app.view.index = app.view.extend({
 
 		var Comment = require('components/comment');
 		React.render(
-			<Comment title="灌水" maxLen="700"/>,
+			<Comment title="灌水" maxLen="70"/>,
 			document.getElementById('water')
 		);
-
-		// var Test = React.createClass({
-		// 	render: function(){
-		// 		return (
-		// 			<div class="w fix" onClick={this.alert}>
-		// 				<div class="c-l l">
-		// 					<div class="c-l-ul js-ul"></div>
-		// 					<div class="more marb20 s">
-		// 						<a href="javascript:">加载更多</a>
-		// 					</div>
-		// 				</div>
-		// 				<div class="c-r r">
-		// 					<div class="c-r-water marb20 s">
-		// 						<p class="tit">灌水</p>
-		// 						<ul class="water-ul mart10 marb10 js-water"></ul>
-		// 						<div class="water-input ib-wrap">
-		// 							<textarea id="water-word" max="70" class="marb10"></textarea><br/>
-		// 							<span class="water-tips"><em class="pre-num js-tips">还可输入</em><em class="num js-num">70</em>个字</span>
-		// 							<a class="gray marl10" href="/water">查看所有</a>
-		// 							<button class="green marl10 js-publish">发表</button>
-		// 						</div>
-		// 					</div>
-		// 				</div>
-		// 			</div>
-		// 		);
-		// 	},
-		// 	alert: function(){
-		// 		alert(1);
-		// 	}
-		// });
-
-		// var start = new Date().getTime();
-		// React.render(
-		// 	<Test elapsed={new Date().getTime() - start} />,
-  //         	document.getElementById('page-index')
-		// );
 
 	},
 	loadMore: function(e){
@@ -85,9 +49,6 @@ app.view.index = app.view.extend({
 	renderWater: function(){
 		var tpl = this.waterTpl = __inline('tpl/water.tpl');
 		var $el = this.$('.js-water');
-		// $.get('/getWater', {len: 4}, function(ret){
-		// 	$el.html(tpl(ret.data));
-		// });
 	},
 	publishWater: function(e){
 		var $ul = this.$('.js-water');

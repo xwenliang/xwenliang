@@ -11,7 +11,7 @@
 	z-index: 10;
 	.processor{
 		position: absolute;
-		left: 0;
+		left: -2px;
 		top: 41px;
 		z-index: 1;
 		width: 0%;
@@ -35,6 +35,7 @@
 			text-indent: -9999px;
 		}
 		.logo{
+			float: left;
 			a{
 				display: inline-block;
 				vertical-align: top;
@@ -50,6 +51,20 @@
 			}
 		}
 		.nav{
+			float: left;
+			a{
+				margin-left: 20px;
+				height: 42px;
+				line-height: 42px;
+				font-size: 16px;
+				color: #bdbdbd;
+				&:hover{
+					color: #55b131;
+				}
+			}
+		}
+		.login{
+			float: right;
 			a{
 				margin-left: 20px;
 				height: 42px;
@@ -79,6 +94,7 @@
 				height: 14px;
 				margin-top: 14px;
 				background: #ddd;
+				cursor: default;
 			}
 		}
 	}

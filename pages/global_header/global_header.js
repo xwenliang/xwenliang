@@ -30,7 +30,7 @@ app.view.global_header = app.view.extend({
 			var username = data.data.user.username;
 			var img = data.data.user.img === 'default' ? __uri('../../img/img.jpg') : data.data.user.img;
 		}
-		this.$('#header-wrap').html(
+		this.$('.login').html(
 			tpl({
 				loginStatus: data.data.loginStatus,
 				username: username,

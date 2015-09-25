@@ -11,9 +11,9 @@ var Item = React.createClass({
 		var userItem = comment.user.indexOf('*') > 0 ? comment.user : <a href={"/u/" + comment.user}>{comment.user}</a>;
 		return (
 			<li className="ib-wrap">
-				<span className="wname marr10">{userItem}</span>
-				<span className="wtext marr20">{comment.text}</span><br/>
-				<span className="wdate">{comment.date}</span>
+				<span className="c-name">{userItem}</span>
+				<span className="c-text">{comment.text}</span><br/>
+				<span className="c-date">{comment.date}</span>
 			</li>
 		);
 	}
@@ -52,17 +52,17 @@ var Comment = React.createClass({
 		return (
 			<div className="comment">
 				<p className="tit">{this.props.title}</p>
-				<ul className="water-ul mart10 marb10 js-water">
+				<ul className="water-ul js-water">
 					{items}
 				</ul>
 				<div className="water-input ib-wrap">
-					<textarea id="comment" className="marb10" onInput={this.inputHandler} onKeyDown={this.enterKeyPublish} />
+					<textarea id="comment" onInput={this.inputHandler} onKeyDown={this.enterKeyPublish} />
 					<span className="water-tips">
 						<em className="pre-num">{this.state.errText}</em>
 						<em className={"num " + this.state.errClass}>{Math.abs(this.state.number)}</em>个字
 					</span>
-					<a className="gray marl10" href="/water">查看所有</a>
-					<button className="green marl10" onClick={this.publish}>发表</button>
+					<a className="gray" href="/water">查看所有</a>
+					<button className="green" onClick={this.publish}>发表</button>
 				</div>
 			</div>
 		);
