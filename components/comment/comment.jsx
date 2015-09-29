@@ -4,6 +4,8 @@
 var React = require('react');
 var util = require('util');
 var $ = require('jquery');
+//polyfill for Promise
+var lie = require('lie');
 
 var Item = React.createClass({
 	render: function(){
