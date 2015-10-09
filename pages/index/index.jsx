@@ -11,21 +11,40 @@ app.view.index = app.view.extend({
 	el: '#page-index',
 
 	events: {
-		'click .more': 	'loadMore',
-		'click .js-publish': 'publishWater',
-		'keyup #water-word': 'checkLen'
+		'click .more': 	'loadMore'
 	},
 	init: function(){
 		//监听model修改
 		this.listenTo(this.model, 'change:data', this.render);
-		//获取灌水
-		this.renderWater();
-
+		
+		//灌水组件
 		var Comment = require('components/comment');
-		React.render(
-			<Comment title="灌水" maxLen="70"/>,
-			document.getElementById('water')
-		);
+		$.ajax({
+			url: '/getWater',
+			data: {len: 4},
+			type: 'get',
+			dataType: 'json',
+			context: this,
+			success: function(ret){
+				React.render(
+					<Comment 
+						className="index-comment"
+						title="灌水"
+						//输入框最多允许输入70字符
+						maxLen="70"
+						//只显示前4条数据
+						showListNum="4"
+						//更多数据的页面地址
+						getMoreUrl="/water"
+						//发布数据的地址
+						publishUrl="/postwater"
+						//初始数据
+						listData={ret.data.list}
+						reversed={true} />,
+					document.getElementById('water')
+				);
+			}
+		});
 
 	},
 	loadMore: function(e){
@@ -45,10 +64,6 @@ app.view.index = app.view.extend({
 				posts: this.model.toJSON().data.posts
 			})
 		);
-	},
-	renderWater: function(){
-		var tpl = this.waterTpl = __inline('tpl/water.tpl');
-		var $el = this.$('.js-water');
 	},
 	publishWater: function(e){
 		var $ul = this.$('.js-water');
@@ -71,28 +86,6 @@ app.view.index = app.view.extend({
 			util.tips(ret.msg);
 			me.$wordContainer.val('');
 		});
-	},
-	checkLen: function(e){
-		var $el = this.$wordContainer = $(e.currentTarget);
-		var $tips = this.$('.js-tips');
-		var $num = this.$('.js-num');
-		var max = $el.attr('max');
-		var word = this.publishWord = $.trim($el.val());
-		var len = util.strLen(word);
-		var _num = max - len;
-		if(_num >= 0){
-			$tips.text('还可输入');
-			$num.text(_num).removeClass('redb');
-			this.canPublish = true;
-		}
-		else{
-			$tips.text('已超过');
-			$num.text(Math.abs(_num)).addClass('redb');
-			this.canPublish = false;
-		}
-		if(len == 0){
-			this.canPublish = false;
-		}
 	}
 
 });

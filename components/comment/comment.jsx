@@ -10,71 +10,80 @@ var lie = require('lie');
 var Item = React.createClass({
 	render: function(){
 		var comment = this.props.comment;
-		var userItem = comment.user.indexOf('*') > 0 ? comment.user : <a href={"/u/" + comment.user}>{comment.user}</a>;
+		var userItem = comment.isRegisted ? <a href={"/u/" + comment.user}>{comment.user}</a> : comment.user;
 		return (
-			<li className="ib-wrap">
+			<li>
 				<span className="c-name">{userItem}</span>
-				<span className="c-text">{comment.text}</span><br/>
+				<span className="c-text">：{comment.text}</span>
 				<span className="c-date">{comment.date}</span>
 			</li>
 		);
 	}
 });
 
+/*
+ * @props:
+ * 		className			评论框的class
+ *		title 				评论框的标题，没有该值则不显示title
+ *		maxLen 				输入框最多允许输入字符数
+ *		showListNum 		只显示前多少条数据，没有该值则全部显示
+ * 		getMoreUrl 			更多数据的页面地址，给首页用，没有该值则不显示更多按钮
+ * 		publishUrl			发布数据的地址
+ * 		publishData 		发布数据的附加参数(用户输入内容已自动获取了评论框中的textarea的值)
+ * 		listData 			初始数据
+ * 		reversed 			数据是否倒序显示，默认正序
+ * 		showListTotal 		显示数据统计，没有该值则不显示
+ */
 var Comment = React.createClass({
-	componentWillMount: function(){
-		//获取之前的评论
-		$.ajax({
-			url: '/getWater',
-			data: {len: 4},
-			type: 'get',
-			dataType: 'json',
-			context: this,
-			success: function(ret){
-				this.setState({comment: ret.data.waterArr});
-			}
-		});
-	},
 	getInitialState: function(){
 		var maxLen = this.props.maxLen;
 		var state = {
 			number: maxLen,
 			errText: '还可输入',
 			errClass: '',
-			comment: []
+			comment: this.props.listData,
+			commentLength: this.props.listData.length
 		};
 		return state;
+	},
+	componentWillMount: function(){
+		//插件将要挂载
 	},
 	render: function(){
 		var items = [];
 		this.state.comment.map(function(comment, index){
 			items.push(<Item key={index} comment={comment}/>);
 		});
+		var total = this.props.showListTotal ? <span className="c-total">({this.state.commentLength})</span> : null;
+		var title = this.props.title ? <h6 className="c-tit">{this.props.title}{total}</h6> : null;
+		var getMoreBtn = this.props.getMoreUrl ? <a className="c-all gray" href={this.props.getMoreUrl}>查看所有</a> : null;
 
 		return (
-			<div className="comment">
-				<p className="tit">{this.props.title}</p>
-				<ul className="water-ul js-water">
+			<div className={"comment " + this.props.className}>
+				{title}
+				<ul className="c-ul">
 					{items}
 				</ul>
-				<div className="water-input ib-wrap">
-					<textarea id="comment" onInput={this.inputHandler} onKeyDown={this.enterKeyPublish} />
-					<span className="water-tips">
-						<em className="pre-num">{this.state.errText}</em>
-						<em className={"num " + this.state.errClass}>{Math.abs(this.state.number)}</em>个字
-					</span>
-					<a className="gray" href="/water">查看所有</a>
-					<button className="green" onClick={this.publish}>发表</button>
+				<div className="c-input">
+					<textarea onInput={this.inputHandler} onKeyDown={this.enterKeyPublish} />
+					<div className="c-btns ib-wrap">
+						<button className="c-pub green" onClick={this.publish}>发表</button>
+						{getMoreBtn}
+						<span className="c-tips">
+							<em>{this.state.errText}</em>
+							<em className={"c-num " + this.state.errClass}>{Math.abs(this.state.number)}</em>个字
+						</span>
+					</div>
 				</div>
 			</div>
 		);
 	},
 	inputHandler: function(e){
 		var state = {
-			number: 70 - util.strLen(e.target.value)
+			number: this.props.maxLen - util.strLen(e.target.value)
 		};
 		if(state.number < 0){
-			state.errClass = 'redb';
+			state.errClass = 'c-red';
 			state.errText = '已超过';
 		}
 		else{
@@ -86,25 +95,35 @@ var Comment = React.createClass({
 	},
 	publish: function(e){
 		var el = e.currentTarget;
-		var val = $.trim($('#comment').val());
-		if(el.ajaxing || !val){
+		var parent = this.getDOMNode();
+		var $input = $(parent).find('textarea');
+		var val = $.trim($input.val());
+		var publishData = $.extend({}, {text: val}, this.props.publishData);
+		if(el.ajaxing || !val || util.strLen(val) > this.props.maxLen){
 			return;
 		}
 		el.ajaxing = true;
 
 		$.ajax({
-			url: '/postwater',
-			data: {
-				text: val
-			},
+			url: this.props.publishUrl,
+			data: publishData,
 			type: 'post',
 			dataType: 'json',
 			context: this,
 			success: function(ret){
-				if(this.state.comment.length > 3){
+				//首页的灌水，只显示四条，所以多于四条的时候要做下处理
+				if(this.props.showListNum && this.state.comment.length > this.props.showListNum - 1){
 					this.state.comment.pop();
 				}
-				this.setState({comment: [ret.data].concat(this.state.comment)});
+				var comment = this.props.reversed ? [ret.data].concat(this.state.comment) : this.state.comment.concat([ret.data]);
+				//增加评论和评论数
+				this.setState({
+					comment: comment,
+					commentLength: ++this.state.commentLength
+				});
+				//删除输入框中已发布的内容
+				$input.val('');
+				this.setState({number: this.props.maxLen});
 			},
 			complete: function(){
 				el.ajaxing = false;
@@ -115,7 +134,6 @@ var Comment = React.createClass({
 		if(e.keyCode === 13){
 			this.publish(e);
 			e.preventDefault();
-			e.currentTarget.value = '';
 		}
 	}
 });

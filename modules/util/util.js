@@ -399,63 +399,6 @@ module.exports = {
 		}
 		return c;
 	},
-	//灌水及评论
-	comments: function(callback){
-		var me = this;
-		var pBtn = $('.publishBtn');
-		var ta = $('#water-word');
-		var max = ta.attr('max');
-		var tips = $('.water-tips .pre-num');
-		var num = $('.water-tips .num');
-		pBtn[0].clicked = false;
-		pBtn.click(function(){
-			var text = $.trim(ta.val());
-			var len = me.strLen(text);
-			var data = me.analyseData(pBtn, "data");
-			data.text = text;
-			if(!text.length || pBtn[0].clicked){
-				return false;
-			}
-			pBtn[0].clicked = true;
-			$.ajax({
-				url: data.url,
-				type: 'POST',
-				data: data,
-				success: function(data){
-					data.msg && me.tips({html: data.msg});
-					callback && callback(ta, data);
-				},
-				error: function(){
-					me.tips({html: '服务器出错'});
-				},
-				complete: function(){
-					pBtn[0].clicked = false;
-				}
-			});
-		});
-		me.specialKey({
-			elem: '#water-word',
-			enter: function(){
-				$(".publishBtn").click();
-				return false;
-			}
-		});
-
-		ta.keyup(function(){
-			var len = me.strLen($(this).val());
-			var _num = max - len;
-			if(_num >= 0){
-				tips.text('还可输入');
-				num.text(_num).removeClass('redb');
-				pBtn[0].clicked = false;
-			}
-			else{
-				tips.text('已超过');
-				num.text(Math.abs(_num)).addClass('redb');
-				pBtn[0].clicked = true;
-			}
-		});
-	},
 	//特殊字符转义，防止xss
 	fuckXss: function(str, reg){
 		var re = reg || /\<|\>|\\|\//ig;

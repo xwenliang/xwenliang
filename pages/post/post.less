@@ -1,43 +1,133 @@
 .page-post{
+	padding-top: 30px;
+	.post-wrap{
+		position: relative;
+		min-height: 200px;
+		padding-left: 180px;
+		padding-bottom: 50px;
+		img{
+			max-width: 100%;
+		}
+	}
+	.post-comment{
+		.c-tit{
+			display: block;
+		}
+		.c-ul li{
+			border-color: #ddd;
+		}
+		.c-input textarea{
+			width: 808px;
+		}
+	}
+	.title{
+		margin-bottom: 10px;
+		font-size: 24px;
+		font-weight: normal;
+	}
+	.a_i{
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 132px;
+		text-align: right;
+	}
 
-	.content{ min-width: 1000px; background: #f9f9f9; padding-top: 30px; padding-bottom: 50px;}
-	.footer{ height: 200px; background: #f9f9f9;}
-
-	.post-wrap{ position: relative; padding-left: 180px;min-height: 200px;}
-	.post-wrap img{ max-width: 100%;}
-	.title{ font-size: 24px; font-weight: normal; margin-bottom: 10px;}
-	.a_i{ position: absolute; top: 0; left: 0; width: 132px; text-align: right;}
-	.a_img a{ display: inline-block; width: 80px; height: 80px; border-radius: 40px; overflow: hidden; box-shadow: 0 0 10px #dfdfdf;}
-	.a_img a img{ width: 100%; height: 100%; vertical-align: bottom;}
+	.a_img a{
+		display: inline-block;
+		width: 80px;
+		height: 80px;
+		border-radius: 40px;
+		overflow: hidden;
+		box-shadow: 0 0 10px #dfdfdf;
+		img{
+			width: 100%;
+			height: 100%;
+			vertical-align: bottom;
+		}
+	}
 	.a_img,
 	.a_name,
-	.a_des{ margin-bottom: 10px;}
-	.artical{ line-height: 24px;}
-	.status{ color: #aaa; margin-bottom: 5px;}
-	.status a,
-	.status span{
-		line-height: 1.2;
+	.a_des{
+		margin-bottom: 10px;
 	}
-	.status a{ color: #aaa;}
-	.status a:hover{ color: #48a623;}
-	.artical a{ color: #48a623; text-decoration: underline;}
-	.post-footer{ min-height: 400px; min-width: 1000px; width: 100%; background: #efefef; border-top: 1px solid #e0e0e0;}
-	.post-footer-wrap{ padding-left: 180px; padding-top: 20px;}
-	.like{ width: 60px; height: 60px; border-radius: 30px; color: #efefef; font-size: 18px; box-shadow: 0 0 5px #aaa;}
-	.like-tips{ color: #999; padding-bottom: 5px;}
-	.like-wrap{ position: relative;}
-	.liked-ul-wrap{ position: absolute; left: 70px; top: 0; width: 740px; height: 60px; overflow: hidden;}
-	.liked-ul{ position: absolute; left: -1000px; top: 0; display: none;}
-	.liked-li{ margin-top: 5px; margin-right: 10px;}
+	.artical{
+		line-height: 24px;
+		a{
+			color: #48a623;
+			text-decoration: underline;
+		}
+	}
+	.status{
+		margin-bottom: 5px;
+		color: #aaa;
+		a{
+			line-height: 1.2;
+			color: #aaa;
+			&:hover{
+				color: #48a623;
+			}
+		}
+		span{
+			line-height: 1.2;
+		}
+	}
+
+	.post-footer{
+		min-height: 400px;
+		min-width: 1000px;
+		width: 100%;
+		background: #efefef;
+		border-top: 1px solid #e0e0e0;
+	}
+	.footer-content{
+		padding-left: 180px;
+		padding-top: 20px;
+	}
+	.like{
+		width: 60px;
+		height: 60px;
+		border-radius: 30px;
+		color: #efefef;
+		font-size: 18px;
+		box-shadow: 0 0 5px #aaa;
+	}
+	.like-tips{
+		color: #999;
+		padding-bottom: 5px;
+	}
+	.like-wrap{
+		position: relative;
+	}
+	.liked-ul-wrap{
+		position: absolute;
+		left: 70px;
+		top: 0;
+		width: 740px;
+		height: 60px;
+		overflow: hidden;
+	}
+	.liked-ul{
+		position: absolute;
+		left: 5px;
+		top: 0;
+	}
+	.liked-li{
+		margin-top: 5px;
+		margin-right: 10px;
+	}
 	.liked-li a,
-	.liked-li span{ display: inline-block; vertical-align: top; width: 50px; height: 50px; border-radius: 25px; box-shadow: 0 0 5px #aaa; background: url(../images/img.jpg) center center; background-size: cover;}
-	.post-comments-wrap{ padding: 40px 0 100px 180px;}
-	.post-comments-wrap .p-c-t{ font-size: 16px; padding-bottom: 5px;}
-	.post-comments-wrap .p-c-list{ border-top: 1px solid #fff; padding: 5px 0;}
-	.post-comments-wrap .p-c-nodata{ color: #bbb; padding: 10px 0;}
-	.post-comments-wrap .wdate{ color: #bbb;}
-	.water-input{ text-align: left; margin-top: 20px;}
-	.water-input textarea{ width: 808px;height: 100px; overflow: hidden; border: 1px solid #3b9c15; resize: none; outline: medium; padding: 5px; font: normal 14px/1.5 'Menlo', Arial, '\5FAE\8F6F\96C5\9ED1', '\5b8b\4f53'; color: #333;}
-	.water-ul li{ padding: 10px 0; border-top: 1px solid #ddd;}
-	.water-ul li:first-child{ border-color: #a9a9a9;}
+	.liked-li span{
+		display: inline-block;
+		vertical-align: top;
+		width: 50px;
+		height: 50px;
+		border-radius: 25px;
+		box-shadow: 0 0 5px #aaa;
+		background: url(../../img/img.jpg) center center;
+		background-size: cover;
+	}
+	.comment-box{
+		padding: 20px 0 100px;
+	}
 }

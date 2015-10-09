@@ -4,6 +4,7 @@
 var $ = require('jquery');
 var app = require('app');
 var util = require('util');
+var React = require('react');
 var zEditor = require('zEditor');
 
 app.view.post = app.view.extend({
@@ -47,22 +48,22 @@ app.view.post = app.view.extend({
 		var tpl = __inline('tpl/post.tpl');
 		this.$el.html(tpl(data));
 		//评论
-		var $waterUl = this.$('.water-ul');
-		util.comments(function(ta, data){
-			if(data.code === 1){
-				me.$('.p-c-nodata').remove();
-				ta.val('').keyup();
-				var str = $('<li class="ib-wrap whide">\
-						<span class="wname marr10">'+data.data.user+':</span>\
-						<span class="wtext marr20">'+data.data.text+'</span><br>\
-						<span class="wdate">'+data.data.date+'</span>\
-					</li>');
-				var total = $('.p-c-t em');
-				total.text(parseInt(total.text(), 10) + 1);
-				$waterUl.append(str);
-				str.fadeIn(500);
-			}
-		});
+		var Comment = require('components/comment');
+		React.render(
+			<Comment 
+				className="post-comment"
+				title="评论"
+				maxLen="200"
+				//发布数据的地址
+				publishUrl="/comment"
+				//发布数据的附加参数
+				publishData={{_id: data.post._id}}
+				//初始数据
+				listData={data.post.comments}
+				showListTotal={true} />,
+			document.getElementById('comments')
+		);
+
 		//要加延时，否则渲染出来的时候 此webview还处于rotate(90deg)的状态，会影响aceEditor的渲染计算
 		zEditor.prototype.revertAceEditor({
 			parent: this.$el,

@@ -1,5 +1,67 @@
+@import '../../css/settings.less';
 .comment{
-	.c-name{
-		
+	.c-tit{
+		margin-bottom: 5px;
+		font-weight: bold;
+		font-size: 16px;
+		color: @color-font-tit;
+		display: inline-block;
+		border-bottom: 2px solid @color-font-tit;
+	}
+	.c-ul{
+		margin-bottom: 15px;
+		li{
+			padding: 10px 0;
+			position: relative;
+			border-bottom: 1px solid #efefef;
+			.c-name{
+				color: @color-link;
+				a{
+					color: @color-link;
+				}
+			}
+			.c-text{
+				color: @color-font;
+				word-break: break-all;
+			}
+			.c-date{
+				color: @color-font-sub;
+				display: block;
+				font-size: 12px;
+				margin-top: 5px;
+			}
+		}
+	}
+	.c-input{
+		text-align: left;
+		textarea{
+			width: 256px;
+			height: 100px;
+			overflow: hidden;
+			border: 1px solid @color-font-tit;
+			resize: none;
+			outline: medium;
+			padding: 5px;
+			font: normal 14px/1.5 'Menlo', Arial, '\5FAE\8F6F\96C5\9ED1', '\5b8b\4f53';
+			color: @color-font;
+		}
+		.c-btns{
+			margin-top: 5px;
+		}
+		.c-all{
+			margin-left: 10px;
+		}
+		.c-tips{
+			color: @color-font-sub;
+			margin-top: 4px;
+			margin-left: 10px;
+			.c-num{
+				font-weight: bold;
+				padding: 0 2px;
+			}
+			.c-red{
+				color: red;
+			}
+		}
 	}
 }
