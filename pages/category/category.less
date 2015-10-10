@@ -1,32 +1,38 @@
+@import '../../css/settings.less';
 .page-category{
 	padding-top: 20px;
-	.c-l-li{
+	padding-bottom: 50px;
+	.artical-li{
 		position: relative;
+		margin-bottom: 20px;
 		line-height: 24px;
-		text-align: left;
 		.title{
-			max-width: 480px;
 			padding-bottom: 5px;
 			a{
-				display: inline-block;
-				vertical-align: middle;
-				max-width: 100%;
-				overflow: hidden;
 				font-weight: bold;
+				width: 420px;
 				white-space: nowrap;
 				font-size: 16px;
+				display: inline-block;
 				text-overflow: ellipsis;
+				overflow: hidden;
 			}
 		}
 		.total{
 			position: absolute;
 			right: 15px;
-			top: 15px;
-			color: #999;
+			top: 10px;
+			color: @color-font-sub;
+			.tag{
+				margin-left: 10px;
+			}
 		}
 		.box-foot{
-			>a,
-			>span{
+			margin-top: 5px;
+			line-height: 1.2;
+			text-align: right;
+			a,
+			span{
 				line-height: 1.2;
 			}
 		}

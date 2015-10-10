@@ -1,3 +1,4 @@
+@import '../../css/settings.less';
 .page-post{
 	padding-top: 30px;
 	.post-wrap{
@@ -16,6 +17,11 @@
 		.c-ul li{
 			border-color: #ddd;
 		}
+		.c-ul .no-data{
+			padding: 5px 0;
+			border: none;
+			color: @color-font-sub;
+		}
 		.c-input textarea{
 			width: 808px;
 		}
@@ -25,7 +31,7 @@
 		font-size: 24px;
 		font-weight: normal;
 	}
-	.a_i{
+	.user-i{
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -33,7 +39,7 @@
 		text-align: right;
 	}
 
-	.a_img a{
+	.user-img a{
 		display: inline-block;
 		width: 80px;
 		height: 80px;
@@ -46,26 +52,26 @@
 			vertical-align: bottom;
 		}
 	}
-	.a_img,
-	.a_name,
-	.a_des{
+	.user-img,
+	.user-name,
+	.user-des{
 		margin-bottom: 10px;
 	}
 	.artical{
 		line-height: 24px;
 		a{
-			color: #48a623;
+			color: @color-link;
 			text-decoration: underline;
 		}
 	}
 	.status{
-		margin-bottom: 5px;
-		color: #aaa;
+		margin-bottom: 10px;
+		color: @color-font-sub;
 		a{
 			line-height: 1.2;
-			color: #aaa;
+			color: @color-font-sub;
 			&:hover{
-				color: #48a623;
+				color: @color-link;
 			}
 		}
 		span{
@@ -93,7 +99,7 @@
 		box-shadow: 0 0 5px #aaa;
 	}
 	.like-tips{
-		color: #999;
+		color: @color-font-sub;
 		padding-bottom: 5px;
 	}
 	.like-wrap{

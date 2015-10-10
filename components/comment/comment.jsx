@@ -33,6 +33,7 @@ var Item = React.createClass({
  * 		listData 			初始数据
  * 		reversed 			数据是否倒序显示，默认正序
  * 		showListTotal 		显示数据统计，没有该值则不显示
+ *		noDataTips 			没有数据时候的提示语
  */
 var Comment = React.createClass({
 	getInitialState: function(){
@@ -51,9 +52,15 @@ var Comment = React.createClass({
 	},
 	render: function(){
 		var items = [];
-		this.state.comment.map(function(comment, index){
-			items.push(<Item key={index} comment={comment}/>);
-		});
+		//当不存在数据时，显示提示语
+		if(!this.state.comment.length){
+			items.push(this.props.noDataTips);
+		}
+		else{
+			this.state.comment.map(function(comment, index){
+				items.push(<Item key={index} comment={comment}/>);
+			});
+		}
 		var total = this.props.showListTotal ? <span className="c-total">({this.state.commentLength})</span> : null;
 		var title = this.props.title ? <h6 className="c-tit">{this.props.title}{total}</h6> : null;
 		var getMoreBtn = this.props.getMoreUrl ? <a className="c-all gray" href={this.props.getMoreUrl}>查看所有</a> : null;

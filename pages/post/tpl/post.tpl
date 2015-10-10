@@ -1,17 +1,17 @@
 <div class="wrap fix">
 	<div class="post-wrap">
-		<div class="a_i">
-			<div class="a_img">
+		<div class="user-i">
+			<div class="user-img">
 				<a href="/u/<%= data.author.username %>" style="
 					background: url(<%= data.author.img === 'default' ?
 						__uri('../../../img/img.jpg') :
 						data.author.img %>) center center;
 					background-size: cover"></a>
 			</div>
-			<div class="a_name">
+			<div class="user-name">
 				<a href="/u/<%= data.author.username %>"><%= data.author.username %></a>
 			</div>
-			<div class="a_des"><%= data.author.describe %></div>
+			<div class="user-des"><%= data.author.describe %></div>
 		</div>
 		<h1 class="title"><%= data.post.title %></h1>
 		<div class="status ib-wrap">
@@ -41,9 +41,7 @@
 									<!--未注册用户没有链接-->
 									<span title="<%= data.post.like[i].user %>"></span>
 								<% }else{ %>
-									<a href="/u/<%= data.post.like[i].user %>" title="<%= data.post.like[i].user %>">
-										<img src="<<%= data.post.like[i].user.img %>>">
-									</a>
+									<a href="/u/<%= data.post.like[i].user %>" title="<%= data.post.like[i].user %>"></a>
 								<% } %>
 							</span>
 						<% } %>

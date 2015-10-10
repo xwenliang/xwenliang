@@ -60,7 +60,8 @@ app.view.post = app.view.extend({
 				publishData={{_id: data.post._id}}
 				//初始数据
 				listData={data.post.comments}
-				showListTotal={true} />,
+				showListTotal={true}
+				noDataTips={<li className="no-data">暂无评论，求挽尊...</li>} />,
 			document.getElementById('comments')
 		);
 
@@ -73,24 +74,25 @@ app.view.post = app.view.extend({
 		
 	},
 	getLikeUserInfo: function(users){
+		var me = this;
 		if(!users.length){
 			return;
+		}
+		var userArr = [];
+		for(var i in users){
+			userArr.push(users[i]['user']);
 		}
 		$.ajax({
 			url: '/getUserInfo',
 			type: 'get',
-			data: { arr: users },
+			data: { arr: userArr },
 			dataType: 'json',
 			success: function(ret){
 				if(!ret.data.userArr){
 					return;
 				}
-
 				ret.data.userArr.forEach(function(user){
-					this.$('.liked-li a[title='+user.username+']').css({
-						'background': 'url('+ user.img +') center center',
-						'background-size': 'cover'
-					});
+					me.$('.liked-li a[title='+user.username+']').css('background-image', 'url('+ user.img +')');
 				});
 			}
 		});
@@ -114,8 +116,7 @@ app.view.post = app.view.extend({
 						html = '<span class="liked-li">\
 									<a href="/u/'+ data.user +'"\
 									title="'+ data.user +'" target="_blank"\
-									style="background: url('+ data.img +') center center;\
-									background-size: cover;"></a>\
+									style="background-image: url('+ data.img +');"></a>\
 								</span>';
 					}
 					$el.text(parseInt($el.text())+1);

@@ -36,7 +36,11 @@ app.model.category = app.model.extend({
 	},
 	getData: function(category){
 		this.fetch({
-			data: {'category': category}
+			data: {
+				category: category,
+				status: 'publish',
+				examine: 1
+			}
 		});
 	}
 

@@ -1,10 +1,38 @@
+@import '../../css/settings.less';
 .page-user{
 	padding-top: 20px;
-	.c-l-ul{
+	.list{
+		width: 680px;
+		float: left;
+	}
+	.user{
+		width: 300px;
+		float: right;
+	}
+
+	.published-tit,
+	.draft-tit{
+		padding: 10px 15px;
+		.tit{
+			display: inline-block;
+			font-size: 16px;
+			font-weight: bold;
+			color: @color-link;
+			border-bottom: 2px solid @color-link;
+		}
+		.total{
+			margin-top: 5px;
+			float: right;
+			color: @color-font-sub;
+		}
+	}
+	
+	.artical-ul{
 		margin-bottom: 30px;
-		.c-l-li{
-			line-height: 24px;
+		.artical-li{
 			position: relative;
+			margin-top: 20px;
+			line-height: 24px;
 			.title{
 				padding-bottom: 5px;
 				a{
@@ -20,35 +48,27 @@
 			.total{
 				position: absolute;
 				right: 15px;
-				top: 17px;
-				color: #999;
+				top: 10px;
+				color: @color-font-sub;
+				.tag{
+					margin-left: 10px;
+				}
 			}
 			.box-foot{
-				>a,
-				>span{
+				margin-top: 5px;
+				line-height: 1.2;
+				text-align: right;
+				a,
+				span{
 					line-height: 1.2;
 				}
 			}
 		}
 	}
-	.published-tit,
-	.draft-tit{
-		padding: 10px 15px;
-		.tit{
-			display: inline-block;
-			font-size: 16px;
-			font-weight: bold;
-			color: #3b9c15;
-			border-bottom: 2px solid #3b9c15;
-		}
-		.total{
-			margin-top: 5px;
-			color: #999;
-		}
-	}
-	.a_info{
+
+	.user-info{
 		text-align: center;
-		.a_img{
+		.user-img{
 			display: inline-block;
 			width: 80px;
 			height: 80px;
@@ -59,12 +79,19 @@
 			background-repeat: no-repeat;
 			background-size: cover;
 		}
-		.a_des{
+		.user-des{
 			width: 132px;
 			margin: 0 auto;
 			max-height: 128px;
 			overflow: hidden; padding: 5px;
 			word-break: break-all;
+		}
+	}
+	.user-btn{
+		margin-top: 20px;
+		a{
+			margin-right: 10px;
+			color: #fff;
 		}
 	}
 }
