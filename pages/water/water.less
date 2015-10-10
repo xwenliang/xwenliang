@@ -1,25 +1,44 @@
+@import '../../css/settings.less';
 .page-water{
+	padding-top: 30px;
 	.water-ul{
 		margin-bottom: 15px;
 		li{
-			padding: 8px 0 2px;
+			padding: 15px 0;
 			position: relative;
 			border-bottom: 1px solid #efefef;
 		}
-		.wname{
-			color: #3b9c15;
+		.w-avatar{
+			float: left;
+			width: 60px;
+			height: 60px;
+			margin-right: 15px;
+			border-radius: 15px;
+			background-image: url(../../img/img.jpg);
+			background-position: center center;
+			background-size: cover;
+			box-shadow: 0 0 10px #dfdfdf;
+		}
+		.w-info{
+			float: left;
+			width: 925px;
+			padding-top: 3px;
+		}
+		.w-name{
+			color: @color-link;
 			a{
-				color: #3b9c15;
+				color: @color-link;
 			}
 		}
-		.wtext{
+		.w-text{
 			display: inline;
+			color: @color-font;
 		}
-		.wdate{
-			color: #999;
-		}
-		.whide{
-			display: none;
+		.w-date{
+			display: block;
+			margin-top: 16px;
+			color: @color-font-sub;
+			font-size: 12px;
 		}
 	}
 }
