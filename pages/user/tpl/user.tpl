@@ -6,11 +6,9 @@
 	<div class="user-des" data-default="<%= data.user.describe %>"><%= data.user.describe %></div>
 </div>
 
-<% if(data.isAuthor){ %>
+<% if(data.isAuthor && data.user.power < 5){ %>
 <div class="box user-btn ib-wrap">
-	<% if(data.user.power < 5){ %>
-		<a class="green" href="/newpost/new">写作</a>
-	<% } %>
+	<a class="green" href="/newpost/new">写作</a>
 	<% if(data.user.power < 2){ %>
 		<a class="green" href="/postlist">文章列表</a>
 		<a class="green" href="/userlist">用户列表</a>

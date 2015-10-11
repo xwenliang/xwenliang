@@ -12,6 +12,11 @@ app.view.water = app.view.extend({
 	render: function(){
 		var tpl = __inline('tpl/water.tpl');
 		var data = this.model.toJSON().data;
+		$.each(data.list, function(key, list){
+			var username = list['user'];
+			data.list[key].href = username.indexOf('*') > 0 ? 'javascript:' : '/u/' + list['user'];
+			data.list[key].className = username.indexOf('*') > 0 ? 'reset-cursor' : '';
+		});
 		this.$el.html(tpl(data));
 		this.setWaterUserAvatar(data);
 	},
@@ -43,7 +48,9 @@ app.view.water = app.view.extend({
 					return false;
 				}
 				$.each(ret.data.userArr, function(key, user){
-					me.$('[title='+user.username+']').css('background-image', 'url('+ user.img +')');
+					if(user.img != 'default'){
+						me.$('[title='+user.username+']').css('background-image', 'url('+ user.img +')');
+					}
 				});
 			}
 		});

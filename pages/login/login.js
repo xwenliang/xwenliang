@@ -41,7 +41,7 @@ app.view.login = app.view.extend({
 	},
 	switchLoginType: function(e){
 		var me = this;
-		var $tar = $(e.currentTarget).closest('.box');
+		var $tar = $(e.currentTarget).closest('.login-box');
 		$tar.animate({
 			'opacity': 0,
 			'margin-left': $(window).width()/2 - 50 + 'px'},
@@ -53,7 +53,7 @@ app.view.login = app.view.extend({
 		);
 	},
 	login: function(e){
-		var $tar = $(e.currentTarget).closest('.box');
+		var $tar = $(e.currentTarget).closest('.login-box');
 		var username, password;
 		if($tar.hasClass('regbox')){
 			username = $.trim($tar.find('#username').val());

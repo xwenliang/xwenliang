@@ -64,27 +64,27 @@ app.view.user = app.view.extend({
 				'cursor': 'pointer'
 			});
 			!$par.find('.mask').length
-			&& $par.find(".a_img")
+			&& $par.find(".user-img")
 			.css('position', 'relative')
 			.append($mask);
 
-			$par.find(".a_des")
+			$par.find(".user-des")
 			.css({'border': '1px solid #55b131', 'padding': '4px 5px'})
 			.attr('contenteditable', true)
 			.focus();
 			$tar.text('保存');
 		}
 		else{
-			var defaultVal = $par.find('.a_des').attr('data-default');
-			var defaultImg = $par.find('.a_img').attr('data-default');
-			var curVal = $par.find('.a_des').text();
-			var curImg = $('.a_img').attr('data-img');
+			var defaultVal = $par.find('.user-des').attr('data-default');
+			var defaultImg = $par.find('.user-img').attr('data-default');
+			var curVal = $par.find('.user-des').text();
+			var curImg = $('.user-img').attr('data-img');
 			if(defaultVal != curVal || defaultImg != curImg){
 				//保存信息
 				me.saveProfile(curVal, curImg);
 			}
 			$par.find('.mask').remove();
-			$par.find('.a_des')
+			$par.find('.user-des')
 			.text(curVal)
 			.css({'border': 'none', 'padding': '5px'})
 			.removeAttr('contenteditable');
@@ -110,7 +110,7 @@ app.view.user = app.view.extend({
 					return util.tips(data.msg || '请求错误~');
 				}
 				var src = data.data.src.replace('\\', '/');
-				$('.a_img').css({
+				$('.user-img').css({
 					'background': 'url(' + src + ') center center',
 					'background-size': 'cover'
 				}).attr('data-img', src);
@@ -130,8 +130,8 @@ app.view.user = app.view.extend({
 		},
 		function(ret){
 			if(ret.code = 1){
-				me.$('.a_des').attr('data-default', val);
-				me.$('.a_img').attr('data-default', img);
+				me.$('.user-des').attr('data-default', val);
+				me.$('.user-img').attr('data-default', img);
 			}
 			util.tips(ret.msg);
 			//更换顶栏头像
