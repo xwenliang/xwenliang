@@ -295,6 +295,7 @@ zEditor.prototype = {
 	},
 	//还原代码编辑器
 	revertAceEditor: function(options){
+		var me = this;
 		var opt = $.extend({}, {
 			parent: null,
 			language: 'javascript',
@@ -306,10 +307,15 @@ zEditor.prototype = {
 		$line.each(function(key, val){
 			var $val = $(val);
 			if($val.hasClass('ace')){
-				aceEditor.create({
+				var editorId = $val.attr('data-editorId');
+				var editor = aceEditor.create({
 					elem: val,
 					language: opt.language,
 					readOnly: opt.readOnly
+				}, function(editor){
+					//保存这个编辑器对象，方便后面获取其value
+					me.aceEditors = me.aceEditors || {};
+					me.aceEditors[editorId] = editor;
 				});
 			}
 		});
