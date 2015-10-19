@@ -1,9 +1,47 @@
+@import '../../css/settings.less';
 .page-newpost{
 	padding-top: 20px;
-	.new-post{ width: 832px; margin: 0 auto;}
-	.new-post input{ color: #333;}
-	.new-post select{ color: #333; background: #f9f9f9; border: 1px solid #ddd; font: normal 14px/1.5 'Consolas', 'Microsoft Yahei', '黑体', '宋体'; padding: 2px;}
-	.input-tit{ width: 640px; font-size: 16px; height: 36px; line-height: 36px;}
-	.input-tags{ width: 433px;}
-	.ui-post span{ display: inline-block; vertical-align: top; line-height: 30px; color: #999;}
+	padding-bottom: 100px;
+	.new-post{
+		width: 832px;
+		margin: 0 auto;
+	}
+	.input-tit{
+		width: 640px;
+		font-size: 16px;
+		height: 36px;
+		line-height: 36px;
+	}
+	.input-tags{
+		width: 414px;
+	}
+	.post-category{
+		margin-top: 10px;
+		select{
+			margin-right: 10px;
+			padding: 2px;
+			border: 1px solid #ddd;
+		}
+	}
+	.post-content{
+		margin-top: 10px;
+	}
+	.post-ui{
+		.ui-cancel{
+			float: right;
+		}
+		.ui-post{
+			float: left;
+		}
+		.green{
+			color: #fff;
+			margin-right: 10px;
+		}
+		.gray{
+			margin-right: 10px;
+		}
+		.tips{
+			line-height: 2;
+		}
+	}
 }
