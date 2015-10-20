@@ -76,7 +76,9 @@ app.router = Backbone.Router.extend({
 		'water'			: 	'water',
 		'newpost/:id'	: 	'newpost',
 		'postlist'		: 	'postlist',
-		'userlist'		: 	'userlist'
+		'userlist'		: 	'userlist',
+		'music' 		: 	'music',
+		'chat'			: 	'chat'
 	},
 	index: function(){
 		this.routeChange('index');
@@ -119,6 +121,16 @@ app.router = Backbone.Router.extend({
 	},
 	userlist: function(){
 		this.routeChange('userlist', {
+
+		});
+	},
+	music: function(){
+		this.routeChange('music', {
+
+		});
+	},
+	chat: function(){
+		this.routeChange('chat', {
 
 		});
 	},

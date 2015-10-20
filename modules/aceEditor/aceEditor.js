@@ -46,6 +46,7 @@ var aceEditor = {
 		    	readOnly: opt.readOnly,
 		        minLines: opt.minLines,
 		        maxLines: opt.maxLines,
+		        showPrintMargin: false,
 		        highlightActiveLine: opt.highlightActiveLine
 		    });
 

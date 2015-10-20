@@ -1,27 +1,57 @@
 html, body{
 	height: 100%;
-	overflow: hidden;
 }
 .perspective{
 	-webkit-perspective: 1000px;
+	-webkit-box-sizing: border-box;
 	height: 100%;
 	padding-top: 42px;
-	.wrapper{
-		-webkit-transform-style: preserve-3d;
-		position: relative;
+}
+.wrapper{
+	-webkit-transform-style: preserve-3d;
+	position: relative;
+	height: 100%;
+	margin: 0 auto;
+	>div{
+		-webkit-backface-visibility: hidden;
+		-webkit-box-sizing: border-box;
+		position: absolute;
+		left: 0;
+		top: 0;
+		display: none;
 		height: 100%;
-		margin: 0 auto;
-		>div{
-			-webkit-backface-visibility: hidden;
-			-webkit-box-sizing: border-box;
-			position: absolute;
-			left: 0;
-			top: 0;
-			display: none;
-			height: 100%;
-			width: 100%;
-			background: #f9f9f9;
-			overflow-y: scroll;
-		}
+		width: 100%;
+		background: #f9f9f9;
+		overflow-y: scroll;
 	}
+}
+.wrap{
+	width: 1000px;
+	margin: 0 auto;
+}
+.box{
+	padding: 10px 15px;
+	background: #fbfbfb;
+	border: 1px solid #fff;
+	box-shadow: 0 0 10px #dfdfdf;
+}
+.dot{
+	display: inline-block;
+	vertical-align: top;
+	width: 4px;
+	height: 4px;
+	border-radius: 2px;
+	background: #999;
+	margin: 6px 10px 0;
+}
+.tag{
+	display: inline-block;
+	vertical-alig: top;
+	padding: 2px 4px;
+	line-height: 1.2;
+	background: #fbfbfb;
+	border: 1px solid #fff;
+	box-shadow: 0 0 3px #aaa;
+	border-radius: 2px;
+	cursor: default;
 }
