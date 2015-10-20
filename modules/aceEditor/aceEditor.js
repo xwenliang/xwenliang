@@ -15,6 +15,7 @@ var options = {
 	readOnly: false,
 	minLines: 5,
 	maxLines: Infinity,
+	showPrintMargin: false,
 	highlightActiveLine: false
 };
 
@@ -46,7 +47,7 @@ var aceEditor = {
 		    	readOnly: opt.readOnly,
 		        minLines: opt.minLines,
 		        maxLines: opt.maxLines,
-		        showPrintMargin: false,
+		        showPrintMargin: opt.showPrintMargin,
 		        highlightActiveLine: opt.highlightActiveLine
 		    });
 
