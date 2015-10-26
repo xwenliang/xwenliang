@@ -23,7 +23,7 @@ var aceEditor = {
 	create: function(opt, callback){
 		var me = this;
 		var opt = $.extend({}, options, opt);
-		require.async(['ace/ace', 'ace/mode/'+opt.language, 'ace/theme/monokai'], function(ace, language){
+		require.async(['ace/ace', 'ace/mode/'+opt.language, 'ace/theme/monokai'], function(ace, language){//Dynamic
 			var editor = ace.edit(opt.elem);
 			var Mode = language.Mode;
 			//关闭错误提示，不使用worker
