@@ -31,12 +31,6 @@ app.view.newpost = app.view.extend({
 	initEditor: function(){
 		//初始化编辑器
 		this.editor = new zEditor({container: '#zEditor'});
-		//如果有内容，则需要还原代码编辑器
-		this.editor.revertAceEditor({
-			parent: this.$el,
-			language: 'javascript',
-			readOnly: false
-		});
 	},
 	render: function(){
 		var data = this.model.toJSON().data;
