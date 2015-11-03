@@ -1,5 +1,5 @@
 /*富文本编辑器样式*/
-#zEditor{
+.artical{
 	position: relative;
 	padding: 5px;
 	margin-bottom: 20px;
@@ -12,6 +12,29 @@
 		height: 359px;
 		outline: medium;
 	}
+	.ace-line{
+		background: #171714;
+	}
+	.ace-topbar{
+		height: 30px;
+		border-bottom: 1px solid #333;
+		.ace-title{
+			display: inline-block;
+			height: 26px;
+			margin-top: 4px;
+			margin-left: 40px;
+			padding: 0 10px;
+			color: #48a623;
+			font-size: 12px;
+			background: #272822;
+			border: 1px solid #333;
+			border-bottom: 0;
+			border-radius: 4px 4px 0 0;
+		}
+	}
+	.ace-editor{
+		font: 12px/normal 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+	}
 	.z-tools{
 		position: absolute;
 		overflow: hidden;
@@ -21,38 +44,66 @@
 		height: 22px;
 		padding: 2px;
 		display: none;
-		span{
-			display: inline-block;
-			vertical-align: top;
-			border-radius: 10px;
-			text-align: center;
-			border: 1px solid #469129;
-			color: #469129;
-			margin-right: 10px;
-			margin-bottom: 10px;
-			cursor: pointer;
-			transition: all 0.2s ease 0;
-		}
-		.z-code,
-		.z-img{
-			width: 20px;
-			height: 20px;
-			line-height: 18px;
-			font-size: 14px;
-			width: 60px;
-			color: #fff;
+		.z-code-wrap{
+			float: left;
+			height: 22px;
+			margin-right: 5px;
+			padding: 0 10px 0 5px;
 			background: #55b131;
+			color: #fff;
+			border-radius: 10px;
+			opacity: 0;
+			-webkit-transform: scale(0.6);
+			-moz-transform: scale(0.6);
+			transition: all .2s linear;
+			select{
+				color: #fff;
+			}
+			.z-code{
+				display: inline-block;
+				vertical-align: top;
+				height: 14px;
+				border: 1px solid #fff;
+				padding: 0 4px;
+				margin-top: 3px;
+				margin-left: -5px;
+				line-height: 14px;
+				font-size: 12px;
+				border-radius: 14px;
+				text-align: center;
+				cursor: pointer;
+				opacity: 0;
+				-webkit-transform: scale(0.6);
+				-moz-transform: scale(0.6);
+				transition: all .4s linear;
+			}
+		}
+		.z-img{
+			float: left;
+			height: 22px;
+			padding: 0 4px;
+			line-height: 22px;
+			border-radius: 22px;
+			background: #55b131;
+			font-size: 12px;
+			color: #fff;
 			opacity: 0;
 			-webkit-transform: scale(0.6);
 			-moz-transform: scale(0.6);
 			transition: all .2s linear;
 		}
 		.z-switch{
+			float: left;
 			width: 20px;
 			height: 14px;
-			line-height: 14px;
-			font-size: 24px;
+			margin-right: 5px;
 			padding: 3px 0;
+			line-height: 14px;
+			border-radius: 40px;
+			text-align: center;
+			border: 1px solid #469129;
+			color: #469129;
+			font-size: 24px;
 			opacity: 0.4;
 			-webkit-transform: rotate(0);
 			-moz-transform: rotate(0);
@@ -63,7 +114,8 @@
 		}
 	}
 	.z-tools.active{
-		width: 176px;
+		width: 100%;
+		.z-code-wrap,
 		.z-code,
 		.z-img{
 			opacity: 1;
@@ -76,7 +128,4 @@
 			-moz-transform: rotate(45deg);
 		}
 	}
-}
-div.ace_editor{
-	font: 12px/normal 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
 }

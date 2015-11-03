@@ -20,7 +20,27 @@ zEditor.prototype = {
 	init: function(cfg){
 		var _default = {
 			container: '',
-			workplace: '.workplace'
+			workplace: '.workplace',
+			languages: {
+				'javascript': {
+					'title': 'javascript'
+				},
+				'html': {
+					'title': 'html'
+				},
+				'xml': {
+					'title': 'xml'
+				},
+				'css': {
+					'title': 'css'
+				},
+				'less': {
+					'title': 'less'
+				},
+				'php': {
+					'title': 'php'
+				}
+			}
 		};
 		var me = this;
 		me.opt = $.extend({}, _default, cfg);
@@ -50,6 +70,17 @@ zEditor.prototype = {
 		me.autoHeight();
 		me.filterPaste();
 	},
+	//创建ace编辑器的基础html
+	initAceHtml: function(language, html){
+		var language = language || '';
+		var html = html || '';
+		//将html中的特殊字符转换，否则不能正常显示
+		html = util.fuckXss(html);
+		return '<div class="ace-topbar" contenteditable="false">\
+					<span class="ace-title">'+this.opt.languages[language]['title']+'</span>\
+				</div>\
+				<div class="ace-editor">'+html+'</div>';
+	},
 	//收集目前已有的uid
 	collectuid: function(){
 		var $lines = this.$el.find('.z-line-group');
@@ -72,20 +103,20 @@ zEditor.prototype = {
 			//为了兼容老数据
 			if($val.hasClass('ace')){
 				$val.addClass('ace-line').removeClass('ace ace_editor ace-monokai ace_dark');
-				val.innerHTML = '<div class="ace-editor">'+val.innerHTML+'</div>';
 			}
 			
 			if($val.hasClass('ace-line')){
 				var editorId = $val.attr('data-editorId');
-				var editorLanguage = $val.attr('data-language') || 'javascript';
-				val.innerHTML = '<div class="ace-editor">'+val.innerHTML+'</div>';
+				var language = $val.attr('data-language') || 'javascript';
+				val.innerHTML = me.initAceHtml(language, val.innerHTML);
 				var editor = aceEditor.create({
 					elem: $val.find('.ace-editor')[0],
-					language: editorLanguage,
+					language: language,
 					readOnly: false
 				}, function(editor){
 					//保存这个编辑器对象，方便后面操作它
 					me.aceEditors[editorId] = editor;
+					me.autoHeight();
 				});
 			}
 		});
@@ -134,11 +165,33 @@ zEditor.prototype = {
 		var me = this;
 		var $el = me.$el;
 		var $editor = me.$editor;
-		var $tool = $('<div class="z-tools"><span class="z-switch">+</span><span class="z-code">&lt;code&gt;</span><span class="z-img">&lt;img&gt;</span></div>');
+		//共有几种语言
+		var options = [];
+		for(var i in me.opt.languages){
+			options.push('<option>'+i+'</option>');
+		}
+		var $tool = $('	<div class="z-tools">\
+							<div class="z-switch">+</div>\
+							<div class="z-code-wrap">\
+								<select class="z-select">\
+									'+options.join('')+'\
+								</select>\
+								<span class="z-code">ok</span>\
+							</div>\
+							<div class="z-img">&lt;img&gt;</div>\
+						</div>\
+					');
 		$editor.append($tool);
+		var $select = $tool.find('.z-select');
 		var $codeBtn = $tool.find('.z-code');
 		var $imgBtn = $tool.find('.z-img');
 		var curLine = null;
+		//禁用工具栏的选择
+		$tool[0].onselect = $tool[0].ondragstart = $tool[0].onselectstart = function(e){
+			e.preventDefault();
+			e.stopPropagation();
+			return false;
+		};
 		$tool.on('click', function(e){
 			var $e = $(this);
 			curLine = me.getCurLine();
@@ -149,26 +202,19 @@ zEditor.prototype = {
 				$e.addClass('active');
 			}
 		});
-		$tool[0].onselect = $tool[0].ondragstart = $tool[0].onselectstart = function(e){
-			e.preventDefault();
+		//选择代码语言
+		$select.on('click', function(e){
 			e.stopPropagation();
 			return false;
-		};
-		//代码、上传图片事件
+		});
+		//插入代码编辑器
 		$codeBtn.on('click', function(e){
-			if(curLine.tagName != 'DIV'){
-				return false;
-			}
-			//代码编辑器代码
-			me.insertCode(curLine);
+			var language = $select.val();
+			me.insertCode(curLine, language);
 			me.autoHeight();
 		});
-
+		//上传图片
 		$imgBtn.on('click', function(e){
-			if(curLine.tagName != 'DIV'){
-				return false;
-			}
-			//上传图片代码
 			util.imgUpLoad({
 				url: '/uploadImg',
 				name: 'img',
@@ -207,7 +253,7 @@ zEditor.prototype = {
 		//滚动条放到各个view身上了，那么编辑器的父元素的offset会跟着该view上下滚动而发生变化
 		opt.offset = me.$el.offset();
 		//该行没有内容，并且不是代码编辑器，才显示工具栏
-		if(!$el.text() && !$el.closest('.ace').length){
+		if(!$el.text() && !$el.hasClass('ace-line')){
 			me.$tool.show();
 			me.$tool.css('top', $el.offset().top - opt.offset.top + opt.parentPaddingTop + (opt.lineHeight - height)/2 - 1);
 		}
@@ -333,7 +379,7 @@ zEditor.prototype = {
 		var $div = $('	<div class="z-line-group ace-line" name="'+ uid +'" \
 							data-editorId="'+editorId+'" \
 							data-language="'+language+'">\
-							<div class="ace-editor"></div>\
+							'+me.initAceHtml(language)+'\
 						</div>\
 					');
 		$div.insertAfter($el);
@@ -348,6 +394,7 @@ zEditor.prototype = {
 			//直接获取焦点会触发ace的bug
 			setTimeout(function(){
 				me.autoHeight();
+				me.setToolPos(curLine);
 				editor.focus();
 			});
 		});
@@ -402,7 +449,10 @@ zEditor.prototype = {
 			var $val = $(val);
 			if($val.hasClass('ace-line')){
 				var editorId = $val.attr('data-editorId');
-				$val.html(me.aceEditors[editorId].getValue());
+				//此处需要将ace的value中的html标签转换，否则下面获取html会被当成节点
+				var value = me.aceEditors[editorId].getValue();
+				value = util.fuckXss(value);
+				$val.html(value);
 			}
 		});
 
