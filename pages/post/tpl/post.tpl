@@ -20,7 +20,7 @@
 			<span class="date-num"><%= data.post.date %></span>
 		</div>
 		<div class="artical">
-			<%= data.post.content %>
+			<div class="workplace"><%= data.post.content %></div>
 		</div>
 	</div>
 </div>

@@ -58,13 +58,37 @@
 		margin-bottom: 10px;
 	}
 	.artical{
-		padding: 0;
 		margin-bottom: 20px;
 		line-height: 24px;
-		border: 0;
 		a{
 			color: @color-link;
 			text-decoration: underline;
+		}
+		img{
+			max-width: 100%;
+		}
+		.ace-line{
+			background: #171714;
+		}
+		.ace-topbar{
+			height: 30px;
+			border-bottom: 1px solid #333;
+			.ace-title{
+				display: inline-block;
+				height: 26px;
+				margin-top: 4px;
+				margin-left: 40px;
+				padding: 0 10px;
+				color: #48a623;
+				font-size: 12px;
+				background: #272822;
+				border: 1px solid #333;
+				border-bottom: 0;
+				border-radius: 4px 4px 0 0;
+			}
+		}
+		.ace-editor{
+			font: 12px/normal 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
 		}
 	}
 	.status{

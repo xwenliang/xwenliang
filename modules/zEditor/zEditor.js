@@ -1,6 +1,7 @@
 /* 富文本编辑器
  * @param cfg.container(string)			zEditor的选择器
- * @param [cfg.workplace(string)]		zEditor的可编辑区
+ * @param [cfg.workplace(string)]		zEditor的可编辑区，默认为'.workplace'
+ * @param [cfg.editable]				zEditor的模式，是否可编辑，默认为true
  */
 
 'use strict';
@@ -21,6 +22,7 @@ zEditor.prototype = {
 		var _default = {
 			container: '',
 			workplace: '.workplace',
+			editable: true,
 			languages: {
 				'javascript': {
 					'title': 'javascript'
@@ -53,22 +55,29 @@ zEditor.prototype = {
 		me.opt.offset = me.$el.offset();
 		me.opt.lineHeight = parseInt(me.$el.css('lineHeight'));
 		me.opt.parentPaddingTop = parseInt(me.$editor.css('paddingTop'));
-		//仅限chrome浏览器
-		me.ua = window.navigator.userAgent.toLowerCase();
-		if(me.ua.indexOf('chrome') > 0){
-			me.ua = 'chrome';
+
+		//不可编辑状态，用于阅读文章页面还原代码编辑器
+		if(!me.opt.editable){
+			me.collectAce();
 		}
 		else{
-			me.$el.html('仅支持Chrome浏览器');
-			return false
+			//仅限chrome浏览器
+			me.ua = window.navigator.userAgent.toLowerCase();
+			if(me.ua.indexOf('chrome') > 0){
+				me.ua = 'chrome';
+			}
+			else{
+				me.$el.html('仅支持Chrome浏览器');
+				return false
+			}
+			me.tool();
+			me.collectuid();
+			me.collectAce();
+			me.clickController();
+			me.inputController();
+			me.autoHeight();
+			me.filterPaste();
 		}
-		me.tool();
-		me.collectuid();
-		me.collectAce();
-		me.clickController();
-		me.inputController();
-		me.autoHeight();
-		me.filterPaste();
 	},
 	//创建ace编辑器的基础html
 	initAceHtml: function(language, html){
@@ -95,14 +104,13 @@ zEditor.prototype = {
 	//收集并还原已有的ace编辑器
 	collectAce: function(){
 		var me = this;
-		//this.$el怎么会不存在呢？因为这个方法会在post页面还原代码编辑器的时候用到
-		var $lines = this.$el ? this.$el.find('.z-line-group') : $('.z-line-group');
+		var $lines = this.$el.find('.z-line-group');
 		this.aceEditors = this.aceEditors || {};
 		$lines.each(function(key, val){
 			var $val = $(val);
 			//为了兼容老数据
 			if($val.hasClass('ace')){
-				$val.addClass('ace-line').removeClass('ace ace_editor ace-monokai ace_dark');
+				$val.addClass('ace-line').removeClass('ace ace_editor ace-monokai ace_dark').removeAttr('style');
 			}
 			
 			if($val.hasClass('ace-line')){

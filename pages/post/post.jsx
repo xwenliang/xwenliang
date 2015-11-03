@@ -65,8 +65,11 @@ app.view.post = app.view.extend({
 			document.getElementById('comments')
 		);
 
-		//要加延时，否则渲染出来的时候 此webview还处于rotate(90deg)的状态，会影响aceEditor的渲染计算
-		zEditor.prototype.collectAce();
+		//还原代码编辑器
+		new zEditor({
+			container: '.artical',
+			editable: false
+		});
 		
 	},
 	getLikeUserInfo: function(users){
