@@ -61,7 +61,7 @@ app.view.post = app.view.extend({
 				//初始数据
 				listData={data.post.comments}
 				showListTotal={true}
-				noDataTips={<li className="no-data">暂无评论，求挽尊...</li>} />,
+				noDataTips={<li className="no-data" key="no-data">暂无评论，求挽尊...</li>} />,
 			document.getElementById('comments')
 		);
 

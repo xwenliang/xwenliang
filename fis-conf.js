@@ -1,7 +1,7 @@
 //输出目录
 var dir = 'static';
 var domain = 'http://xwenliang.cn';
-var testDir = '/Users/zooble/Documents/case/xwenliang.cn/3/static';
+var testDir = '/Users/zooble/Documents/case/xwenliang.cn/4/static';
 
 // fis.config.set('roadmap.relative', true);
 // fis.config.set('settings.postpackager.simple.autoReflow', true);
