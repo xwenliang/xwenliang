@@ -102,7 +102,7 @@ app.model.index = app.model.extend({
 			this.fetch({
 				data: {
 					date: this.get('date'),
-					len: 4,
+					len: 10,
 					examine: 1,
 					status: 'publish'
 				}
