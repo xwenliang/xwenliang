@@ -14,10 +14,15 @@ var Item = React.createClass({
 		return (
 			<li>
 				<span className="c-name">{userItem}</span>
-				<span className="c-text">：{comment.text}</span>
+				<span className="c-text" dangerouslySetInnerHTML={this.createMarkup(comment.text)}></span>
 				<span className="c-date">{comment.date}</span>
 			</li>
 		);
+	},
+	createMarkup: function(html){
+		return {
+			__html: ': '+html
+		}
 	}
 });
 

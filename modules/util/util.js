@@ -406,6 +406,15 @@ module.exports = {
 			return '&#' + $1.charCodeAt() + ';';
 		});
 	},
+	//上面函数的相反过程
+	xssFuck: function(str, reg){
+		var reg = reg || /^\&\#([0-9]+)\;/ig;
+		var arr = reg.exec(str);
+		if(!arr || !arr.length || !!arr[1]){
+			return str;
+		}
+		var charCode = arr[1];
+	},
 	/* 倒计时
 	 * @param elem($obj) 					存放倒计时的节点
 	 * @param toatl(num)					需要倒计时多少秒
