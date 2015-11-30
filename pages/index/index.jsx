@@ -94,7 +94,9 @@ app.model.index = app.model.extend({
 
 	url: '/getPosts',
 	defaults: {
-		date: 0
+		data: {
+			date: parseInt($('body').attr('data-date')) || 0
+		}
 	},
 	init: function(){
 		//监听date变化

@@ -184,9 +184,23 @@ fis.config.merge({
         online: [
             {
                 from: dir,
+                to: staticDir,
+                exclude: /.*\/view\/.*\.html/ig,
+                subOnly: true,
+                replace: {
+                    from: domain,
+                    to: onlineDomain
+                }
+            },
+            {
+                from: dir,
                 to: viewDir,
                 include: /.*\/view\/.*\.html/ig,
-                subOnly: true
+                subOnly: true,
+                replace: {
+                    from: domain,
+                    to: onlineDomain
+                }
             }
         ]
     }

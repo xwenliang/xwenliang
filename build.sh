@@ -1,1 +1,1 @@
-zoo release -pomd test --domains
+zoo release -pomd online --domains
