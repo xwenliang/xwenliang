@@ -1,7 +1,8 @@
 //输出目录
 var dir = 'static';
 var domain = 'http://xwenliang.cn';
-var testDir = '/Users/zooble/Documents/case/xwenliang.cn/4/static';
+var staticDir = '/Users/zooble/Documents/case/xwenliang.cn/4/static';
+var viewDir = '/Users/zooble/Documents/case/xwenliang.cn/4/app';
 
 // fis.config.set('roadmap.relative', true);
 // fis.config.set('settings.postpackager.simple.autoReflow', true);
@@ -127,7 +128,7 @@ fis.config.merge({
             },
             //后端模板
             {
-                reg: /^(.*)\.html$/i,
+                reg: /^\/view\/.*\.html$/i,
                 //当做类js文件处理，可以识别__inline, __uri等资源定位标识，参与编译
                 isHtmlLike: true,
                 useCache: false,
@@ -168,7 +169,14 @@ fis.config.merge({
         test: [
             {
                 from: dir,
-                to: testDir,
+                to: staticDir,
+                exclude: /.*\/view\/.*\.html/ig,
+                subOnly: true
+            },
+            {
+                from: dir,
+                to: viewDir,
+                include: /.*\/view\/.*\.html/ig,
                 subOnly: true
             }
         ],
@@ -176,7 +184,8 @@ fis.config.merge({
         online: [
             {
                 from: dir,
-                to: testDir,
+                to: viewDir,
+                include: /.*\/view\/.*\.html/ig,
                 subOnly: true
             }
         ]
