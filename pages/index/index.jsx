@@ -108,8 +108,11 @@ app.model.index = app.model.extend({
 				}
 			});
 		});
-		//初次请求
-		this.set('date', Date.now());
+		//初次请求，如果不是直接访问该页面，再请求
+		var dataFrom = $('body').attr('data-from');
+		if(dataFrom === 'frontTempl'){
+			this.set('date', Date.now());
+		}
 	}
 
 });

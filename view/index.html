@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title><%= title %></title>
+	<title><%= data.title %></title>
 	<meta name="description" content="记录web开发中遇到的各种问题，及解决问题的思路和过程。如果你有好的建议或想法，欢迎前来交流。如果你想找个小窝记录一下自己的故事，欢迎前来入驻。">
 	<meta name="keywords" content="web开发笔记,web开发,前端开发,html5,nodejs">
 	<meta name="author" content="zooble,wenliang.web@gmail.com">
 	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 	<link rel="shortcut icon" type="image/ico" href="/favicon.ico">
-	<link type="text/css" rel="stylesheet" href="/css/common.less">
+	<link type="text/css" rel="stylesheet" href="../css/common.less">
 	<!--STYLE_PLACEHOLDER-->
 </head>
-<body>
+<body data-from="<%= data.from %>">
 
 	<!--inline[../pages/global_header/global_header.html]-->
 
@@ -27,7 +27,7 @@
 			<!--用户中心-->
 			<div id="page-user" class="page-user" data-model="user"></div>
 			<!---文章详情-->
-			<div id="page-post" class="page-post" data-model="post"></div>
+			<!--inline[../pages/post/post.html]-->
 			<!-- 灌水列表 -->
 			<div id="page-water" class="page-water" data-model="water"></div>
 			<!-- 写文章 -->
@@ -47,7 +47,7 @@
 	</div>
 
 	
-	<script src="js/mod.js"></script>
+	<script src="../js/mod.js"></script>
 	<!--RESOURCEMAP_PLACEHOLDER-->
 	<!--SCRIPT_PLACEHOLDER-->
 	<script>

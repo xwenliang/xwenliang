@@ -1,7 +1,13 @@
 <div id="page-index" class="page-index" data-model="index">
 	<div class="wrap fix">
 		<div class="artical">
-			<div class="js-ul"></div>
+			<div class="js-ul">
+				
+				<% if(data.from === 'serverTempl_index'){ %>
+					<link rel="import" href="./tpl/list.tpl.html?__inline">
+				<% } %>
+				
+			</div>
 			<div class="more box">
 				<a href="javascript:">加载更多</a>
 			</div>

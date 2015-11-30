@@ -144,6 +144,11 @@ app.model.post = app.model.extend({
 			this.getData(this.get('id'));
 		});
 		this.getData(params.id);
+		//初次请求，如果不是直接访问该页面，再请求
+		// var dataFrom = $('body').attr('data-from');
+		// if(dataFrom === 'frontTempl'){
+		// 	this.getData(params.id);
+		// }
 	},
 	getData: function(id){
 		this.fetch({

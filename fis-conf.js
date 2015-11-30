@@ -1,6 +1,7 @@
 //输出目录
 var dir = 'static';
-var domain = 'http://xwenliang.cn';
+var domain = 'http://localhost:3000';
+var onlineDomain = 'http://xwenliang.cn';
 var staticDir = '/Users/zooble/Documents/case/xwenliang.cn/4/static';
 var viewDir = '/Users/zooble/Documents/case/xwenliang.cn/4/app';
 
@@ -122,7 +123,6 @@ fis.config.merge({
             //前端模版
             {
                 reg: '**.tpl',
-                release: false,
                 useOptimizer: false,
                 useCache: false
             },
