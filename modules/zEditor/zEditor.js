@@ -23,6 +23,7 @@ zEditor.prototype = {
 			container: '',
 			workplace: '.workplace',
 			editable: true,
+			//https://github.com/ajaxorg/ace
 			languages: {
 				'javascript': {
 					'title': 'javascript'
@@ -41,6 +42,9 @@ zEditor.prototype = {
 				},
 				'php': {
 					'title': 'php'
+				},
+				'objectivec': {
+					'title': 'objective-c'
 				}
 			}
 		};
