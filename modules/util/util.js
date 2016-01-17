@@ -237,12 +237,17 @@ module.exports = {
 	 * @param elem(string)			需要绑定这个事件的选择器
 	 * @param enter(fn)				enter事件
 	 * @param esc(fn)				esc事件
+	 * @param ctrlEnter				ctrl+enter事件
 	 */
 	specialKey: function(cfg){
 		$(cfg.elem).keydown(function(ev){
 			var code = ev.keyCode;
 			switch(code){
 				case 13:
+					if(cfg.ctrlEnter && ev.ctrlKey){
+						cfg.ctrlEnter();
+						return false;
+					}
 					if(cfg.enter){
 						cfg.enter();
 						return false;

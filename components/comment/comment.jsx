@@ -143,7 +143,7 @@ var Comment = React.createClass({
 		});
 	},
 	enterKeyPublish: function(e){
-		if(e.keyCode === 13){
+		if(e.keyCode === 13 && e.ctrlKey){
 			this.publish(e);
 			e.preventDefault();
 		}
