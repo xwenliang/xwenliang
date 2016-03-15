@@ -1,6 +1,6 @@
 //输出目录
 var dir = 'static';
-var domain = 'http://localhost:3000';
+var domain = 'http://172.16.5.211:3000';
 var onlineDomain = 'http://xwenliang.cn';
 var staticDir = '/Users/zooble/Documents/case/xwenliang.cn/4/static';
 var viewDir = '/Users/zooble/Documents/case/xwenliang.cn/4/app';

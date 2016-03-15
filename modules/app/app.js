@@ -12,6 +12,8 @@ var Backbone = require('Backbone');
 
 var app = window.app || {};
 
+app.isMobile = /mobile/i.test(navigator.userAgent);
+
 app.init = function(){
 	//页面点击监听
 	$('body').on('click', 'a', function(e){
@@ -187,7 +189,9 @@ app.router = Backbone.Router.extend({
 		if(!from){
 			to.$el.css({
 				'display': 'block',
-				'overflow-y': 'scroll',
+				//为何移动端要单独处理？如果overflow中的任何一个设置了任何其他属性，都将导致滑动缓冲失效
+				'overflow-x': app.isMobile ? 'initial' : 'hidden',
+				'overflow-y': app.isMobile ? 'initial' : 'scroll',
 				'padding-right': 0,
 				'-webkit-transform': 'translateZ('+boxWidth/2+'px)'
 			});
@@ -228,7 +232,8 @@ app.router = Backbone.Router.extend({
 					});
 				}
 				to.$el.css({
-					'overflow-y': 'scroll',
+					'overflow-x': app.isMobile ? 'initial' : 'hidden',
+					'overflow-y': app.isMobile ? 'initial' : 'scroll',
 					'padding-right': 0,
 					'-webkit-transform': 'translateZ('+boxWidth/2+'px)'
 				});

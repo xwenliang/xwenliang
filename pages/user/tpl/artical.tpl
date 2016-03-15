@@ -12,7 +12,7 @@
 				<div class="box-foot ib-wrap">
 					<a href="/c/<%= data.draft_arr[i].category %>" title="分类"><%= data.draft_arr[i].category %></a>
 					<span class="dot"></span>
-					<span><%= data.draft_arr[i].date %></span>
+					<span class="box-foot-date"><%= data.draft_arr[i].date %></span>
 				</div>
 			</div>
 		<% } %>
@@ -36,7 +36,7 @@
 				<div class="box-foot ib-wrap">
 					<a href="/c/<%= data.publish_arr[i].category %>" title="分类"><%= data.publish_arr[i].category %></a>
 					<span class="dot"></span>
-					<span><%= data.publish_arr[i].date %></span>
+					<span class="box-foot-date"><%= data.publish_arr[i].date %></span>
 				</div>
 			</div>
 		<% } %>

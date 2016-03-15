@@ -14,7 +14,7 @@
 			<span class="dot"></span>
 			<a href="/c/<%= data.posts[i].category %>" title="分类"><%= data.posts[i].category %></a>
 			<span class="dot"></span>
-			<span><%= data.posts[i].date %></span>
+			<span class="box-foot-date"><%= data.posts[i].date %></span>
 		</div>
 	</div>
 <% } %>

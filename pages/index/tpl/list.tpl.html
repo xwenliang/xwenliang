@@ -13,7 +13,7 @@
 			<span class="dot"></span>
 			<a href="/c/<%= post.category %>" title="分类"><%= post.category %></a>
 			<span class="dot"></span>
-			<span><%= post.date %></span>
+			<span class="box-foot-date"><%= post.date %></span>
 		</div>
 	</div>
 <% }) %>
