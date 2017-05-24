@@ -51,27 +51,22 @@
 	<!--RESOURCEMAP_PLACEHOLDER-->
 	<!--SCRIPT_PLACEHOLDER-->
 	<script>
-		var app = require('app');
-		var header = require('pages/global_header');
-		var index = require('pages/index');
-		var login = require('pages/login');
-		var reg = require('pages/reg');
-		var user = require('pages/user');
-		var post = require('pages/post');
-		var water = require('pages/water');
-		var newpost = require('pages/newpost');
-		var postlist = require('pages/postlist');
-		var userlist = require('pages/userlist');
-		var category = require('pages/category');
-		app.init();
-
-
-		(function(){
-			var script = document.createElement('script');
-			script.src = 'http://hm.baidu.com/hm.js?dac206318442217db8ecb1a7c7b74474';
-			document.body.appendChild(script);
-			document.body.removeChild(script);
-		})();
+		window.onpopstate = function(e){
+			debugger;
+		};
+		// var app = require('app');
+		// var header = require('pages/global_header');
+		// var index = require('pages/index');
+		// var login = require('pages/login');
+		// var reg = require('pages/reg');
+		// var user = require('pages/user');
+		// var post = require('pages/post');
+		// var water = require('pages/water');
+		// var newpost = require('pages/newpost');
+		// var postlist = require('pages/postlist');
+		// var userlist = require('pages/userlist');
+		// var category = require('pages/category');
+		// app.init();
 	</script>
 </body>
 </html>

@@ -1,9 +1,9 @@
 //输出目录
 var dir = 'static';
-var domain = 'http://172.16.5.211:3000';
+var domain = 'http://localhost';
 var onlineDomain = 'http://xwenliang.cn';
-var staticDir = '/Users/zooble/Documents/case/xwenliang.cn/4/static';
-var viewDir = '/Users/zooble/Documents/case/xwenliang.cn/4/app';
+var staticDir = '/Users/zooble/Documents/case/xwenliang.cn/5/static';
+var viewDir = '/Users/zooble/Documents/case/xwenliang.cn/5/app';
 
 // fis.config.set('roadmap.relative', true);
 // fis.config.set('settings.postpackager.simple.autoReflow', true);
